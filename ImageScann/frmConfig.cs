@@ -2,6 +2,7 @@
 using ImageScann.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Windows.Forms;
 
@@ -45,8 +46,7 @@ namespace ImageScann
 
             chbCrop.Checked = iniHelper.IniReadValue("SETTING -100", "AutoCrop") == "ON";
             chbDeskew.Checked = iniHelper.IniReadValue("SETTING -100", "Deskew") == "ON";
-            chbAutomaticOrientation.Checked = iniHelper.IniReadValue("SETTING -100", "AutomaticImageOrientation") == "ON";
-
+            chbAutomaticOrientation.Checked = iniHelper.IniReadValue("SETTING -100", "AutomaticImageOrientation") == "ON"; 
         }
 
         private void button1_Click(object sender, System.EventArgs e)
@@ -57,13 +57,10 @@ namespace ImageScann
             iniHelper.IniWriteValue("SETTING -100", "AutoCrop", chbCrop.Checked ? "ON" : "OFF");
             iniHelper.IniWriteValue("SETTING -100", "Deskew", chbDeskew.Checked ? "ON" : "OFF");//倾斜校正
             iniHelper.IniWriteValue("SETTING -100", "AutomaticImageOrientation", chbAutomaticOrientation.Checked ? "ON" : "OFF");//自动图像方向校正
-            iniHelper.IniWriteValue("SETTING -100", "AutoImageOrintLangID", "1033");//选择语言  1033 英文
-
+            iniHelper.IniWriteValue("SETTING -100", "AutoImageOrintLangID", "1033");//选择语言  1033 英文 
             MessageBox.Show("设置成功!");
             this.Close();
         }
-
-
-
+       
     }
 }

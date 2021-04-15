@@ -16,6 +16,8 @@ using System.Windows.Forms;
 using NLog;
 using Aspose.BarCode.BarCodeRecognition;
 using ImageScann.BLL;
+using System.Configuration;
+using ImageScann.Models;
 
 namespace ImageScann
 {
@@ -23,7 +25,7 @@ namespace ImageScann
     public partial class frmIndex : Form
     {
 
-        public string USERID;
+        public string USERID = ConfigurationManager.AppSettings["LoginName"];
         //ScanCtrl scan = new ScanCtrl();
         Bitmap bitMap = null;
         Point mouseDownPoint = new Point(); //记录拖拽过程鼠标位置
@@ -37,6 +39,7 @@ namespace ImageScann
         string filePath = string.Empty;
         string imagePath = string.Empty;
         string savePath = string.Empty;
+        string vatinvoiceimagesPath = string.Empty;
         TreeNode curNode = null;
         TreeNode replaceNode = null;
         TreeNode viewNode = null;
@@ -58,7 +61,7 @@ namespace ImageScann
         List<TreeNode> selectNode = new List<TreeNode>();//多选的子节点
         List<string> errDataNbr = new List<string>();//记录重复扫描的单号
         private bool isFirstScan = false;//判断本次扫描的图片的条形码是否第一张
-        private static readonly ILogger _logger = LogManager.GetCurrentClassLogger();
+        private static readonly ILogger _logger = LogManager.GetCurrentClassLogger();        
         OpskyScan opskyScan = new OpskyScan();
         public int PageCnt
         {
@@ -125,7 +128,7 @@ namespace ImageScann
             AsposeLicense.ConfigKey();
             string msg;
 
-            bInitFlag = opskyScan.InitOpSkyScan(this,out msg);
+            bInitFlag = opskyScan.InitOpSkyScan(this, out msg);
             if (!bInitFlag)
             {
                 MessageBox.Show(msg, "提示");
@@ -133,10 +136,14 @@ namespace ImageScann
                 toolStripLabel6.Enabled = false;
                 tslSuppleScann.Enabled = false;
                 tslSuppleUp.Enabled = false;
+                tsVatInvoiceScan.Enabled = false;
             }
+            button_Enabled();
             var basePath = AppDomain.CurrentDomain.BaseDirectory;
             imagePath = Path.Combine(basePath, "images");
             if (!Directory.Exists(imagePath)) Directory.CreateDirectory(imagePath);
+            vatinvoiceimagesPath = Path.Combine(basePath, "vatinvoiceimages");
+            if (!Directory.Exists(vatinvoiceimagesPath)) Directory.CreateDirectory(vatinvoiceimagesPath);
             InitTreeView();
             panelTip.Location = new Point((panelTip.Parent.ClientSize.Width / 2) - (panelTip.Width / 2),
                 (panelTip.Parent.ClientSize.Height / 2) - (panelTip.Height / 2));
@@ -341,7 +348,7 @@ namespace ImageScann
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button3_Click(object sender, EventArgs e)
+        private void bt_NewGroup_Click(object sender, EventArgs e)
         {
             frmAddGroup addGroup = new frmAddGroup("AddGroup");
             addGroup.tree = treeView1;
@@ -557,7 +564,7 @@ namespace ImageScann
                     _logger.Info("单笔删除:" + node.Text);
                     if (node.Parent == null)
                     {
-                        var root = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"images/");
+                        var root = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images/");
                         if (node.Tag.ToString() == "UploadDocNode")
                         {
                             root += "uploadimages/";
@@ -696,7 +703,11 @@ namespace ImageScann
                 _logger.Info(string.Format("修改单据号异常:" + exception.ToString()));
             }
         }
-
+        /// <summary>
+        /// 正常扫描
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void tslNormalScan_Click(object sender, EventArgs e)
         {
             _logger.Info(string.Format("正常扫描开始***************************"));
@@ -705,7 +716,7 @@ namespace ImageScann
             isreturnscann = false;
             isreplacescann = false;
             issupplementscann = false;
-            button5.Enabled = true;
+            bt_UploadNow.Enabled = true;
             datanbr = "";
             tslNormalScan.Enabled = false;
             savePath = "";
@@ -715,7 +726,7 @@ namespace ImageScann
                 opskyScan.Scan(this);
                 tslNormalScan.Enabled = true;
             }
-            _logger.Info(string.Format("正常扫描结束***************************"));            
+            _logger.Info(string.Format("正常扫描结束***************************"));
             //InitImage();
         }
 
@@ -723,7 +734,7 @@ namespace ImageScann
         {
             _logger.Info(string.Format("替换扫描开始***************************"));
             isscann = false;
-            button5.Enabled = true;
+            bt_UploadNow.Enabled = true;
             isreturnscann = false;
             isreplacescann = true;
             issupplementscann = false;
@@ -751,7 +762,7 @@ namespace ImageScann
         {
             _logger.Info(string.Format("补充扫描开始***************************"));
             isscann = false;
-            button5.Enabled = true;
+            bt_UploadNow.Enabled = true;
             isreturnscann = false;
             isreplacescann = false;
             issupplementscann = true;
@@ -767,7 +778,7 @@ namespace ImageScann
 
             savePath = Path.Combine(imagePath, Path.Combine(paths[node.Tag.ToString()], curNode.Text));
             if (bInitFlag)
-            {                
+            {
                 opskyScan.Scan(this);
                 tslNormalScan.Enabled = true;
             }
@@ -785,11 +796,11 @@ namespace ImageScann
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button5_Click(object sender, EventArgs e)
+        private void bt_UploadNow_Click(object sender, EventArgs e)
         {
             try
             {
-                button5.Enabled = false;
+                bt_UploadNow.Enabled = false;
                 _logger.Info(string.Format("实时上传开始***************************"));
                 var newDataNbrs = new List<string>();
                 var oldDataNbrs = new List<string>();
@@ -818,7 +829,7 @@ namespace ImageScann
                 }
                 if (uploadData.Count == 0)
                 {
-                    button5.Enabled = true;
+                    bt_UploadNow.Enabled = true;
                     txtLog.AppendText("没有实时上传数据\r\n");
                     return;
                 }
@@ -829,7 +840,7 @@ namespace ImageScann
                     path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
                     if (!Directory.Exists(path))
                     {
-                        button5.Enabled = true;
+                        bt_UploadNow.Enabled = true;
                         _logger.Info("文件路径不存在:" + path);
                         MessageBox.Show("文件路径不存在:" + path, "异常");
                         return;
@@ -842,7 +853,7 @@ namespace ImageScann
                     {
                         _logger.Info(string.Format("以下单据已上传过影像:\n{0}\n请调出影像进行补扫,上传失败!", uploadDataNbrs));
                         MessageBox.Show(string.Format("以下单据已上传过影像:\n{0}\n请调出影像进行补扫,上传失败!", uploadDataNbrs), "提示");
-                        this.button5.Enabled = true;
+                        this.bt_UploadNow.Enabled = true;
                         return;
                     }
                     var dataNbrIsExist = CheckDataNbrIsExitDocList(string.Join(",", newDataNbrs.ToArray()));
@@ -850,7 +861,7 @@ namespace ImageScann
                     {
                         _logger.Info(string.Format("以下单据不存在Ces系统中:\n{0}\n,上传失败!", dataNbrIsExist));
                         MessageBox.Show(string.Format("以下单据不存在Ces系统中:\n{0}\n,上传失败!", dataNbrIsExist), "提示");
-                        this.button5.Enabled = true;
+                        this.bt_UploadNow.Enabled = true;
                         return;
                     }
                     if (oldDataNbrs.Count > 0)
@@ -1545,8 +1556,8 @@ namespace ImageScann
 
                         if (error.Count > 0)
                             MessageBox.Show(string.Join("\n\r", error.ToArray()), "上传错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        this.button5.Enabled = true;
-                        this.button4.Enabled = true;
+                        this.bt_UploadNow.Enabled = true;
+                        this.bt_UploadReceipt.Enabled = true;
                         this.InitTreeView();
                         this.panelTip.Visible = false;
                         this.pbPicture.Image = null;
@@ -1970,10 +1981,10 @@ namespace ImageScann
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button4_Click(object sender, EventArgs e)
+        private void bt_UploadReceipt_Click(object sender, EventArgs e)
         {
             _logger.Info(string.Format("回单上传开始***************************"));
-            button4.Enabled = false;
+            bt_UploadReceipt.Enabled = false;
             var uploadData = new List<UploadDataNbr>();
             foreach (TreeNode item in treeView1.Nodes)
             {
@@ -1989,7 +2000,7 @@ namespace ImageScann
             }
             if (uploadData.Count == 0)
             {
-                button4.Enabled = true;
+                bt_UploadReceipt.Enabled = true;
                 //txtLog.AppendText("没有回单补扫上传数据\r\n");
                 MessageBox.Show("没有回单补扫上传数据");
                 _logger.Info(string.Format("没有回单补扫上传数据,补充上传结束"));
@@ -2000,7 +2011,7 @@ namespace ImageScann
                 var path = "images/" + (item.Kind == 1 ? "uploadimages/" : item.Kind == 2 ? "supplementimages/" : "") + item.DataNbr;
                 if (!Directory.Exists(path))
                 {
-                    button4.Enabled = true;
+                    bt_UploadReceipt.Enabled = true;
                     _logger.Info("文件路径不存在:" + Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path));
                     MessageBox.Show("文件路径不存在:" + Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path), "异常");
                     return;
@@ -2169,6 +2180,95 @@ namespace ImageScann
             else
             {
                 MessageBox.Show("请勾选要删除的记录", "提示", MessageBoxButtons.OK, MessageBoxIcon.Question);
+            }
+        }  
+
+        private void bt_UploadInvoice_Click(object sender, EventArgs e)
+        {
+            Vat_Invoice invoice = new Vat_Invoice();
+            Vat_InvoiceBll invoiceBll = new Vat_InvoiceBll();
+            invoice.InvoiceType = "专票";
+            invoice.InvoiceTypeOrg = "增值税专用发票";
+            invoice.InvoiceCode = "3200203130";
+            invoice.InvoiceNumber = "28679272";
+            invoice.InvoiceDate = "2021-03-11";
+            invoice.PurchaserName = "八马茶业股份有限公司";
+            invoice.PurchaserRegisterNum = "91440300279366439J";
+            invoice.PurchaserAddress = "深圳市罗湖区南湖街道东门南路华都园大厦7楼0755-02389008";
+            invoice.PurchaserBank = "招行深圳市蔡屋围支行755911566410401";
+            invoice.SellerName = "宜兴市荟砂紫砂文化有限公司";
+            invoice.SellerRegisterNum = "91320282MA1Y2FW80W";
+            invoice.SellerAddress = "宣兴市新街街道怡丰苑2幢新城路375号13961536C86";
+            invoice.SellerBank = "中国农业银行股份有限公司宜兴环科园支行10648301040017287";
+            invoice.TotalAmount = 99782.17M;
+            invoice.TotalTaxAmount = 100780.00M;
+            invoice.TotalTax = 997.83M;
+            invoice.Payee = "许翔";
+            invoice.Checker = "任沽";
+            invoice.NoteDrawer = "沈祥";
+            invoice.Remarks = "各刀";
+            invoice.CreateTime = DateTime.Now;
+            invoice.PushStatus = 0;
+            invoiceBll.AddVatInvoice(invoice);
+
+        }
+        /// <summary>
+        /// 发票扫描
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsVatInvoiceScan_Click(object sender, EventArgs e)
+        {
+            _logger.Info(string.Format("发票扫描开始***************************"));
+            txtLog.Clear();
+            isscann = true;
+            bt_UploadInvoice.Enabled = true;
+            datanbr = "";
+            tsVatInvoiceScan.Enabled = false;
+            savePath = "";
+            isFirstScan = false;
+            if (bInitFlag)
+            {
+                opskyScan.InvoiceScan(this);
+                tsVatInvoiceScan.Enabled = true;
+            }
+            _logger.Info(string.Format("发票扫描结束***************************"));
+            //InitImage();
+        }
+
+        private void tsConfig_Click(object sender, EventArgs e)
+        {
+            frmServerConfig frm = new frmServerConfig();            
+            frm.ShowDialog();
+            button_Enabled();
+        }
+        /// <summary>
+        /// 加载界面按钮状态
+        /// </summary>
+        void button_Enabled()
+        {
+            string scanMode = ConfigurationManager.AppSettings["scanMode"];  //读取识别模式 image：影像模式 invoice:识别发票模式
+            if (scanMode == "invoice")
+            {
+                tslNormalScan.Enabled = false;
+                toolStripLabel6.Enabled = false;
+                tslSuppleScann.Enabled = false;
+                tslSuppleUp.Enabled = false;                
+                toolStripLabel6.Enabled = false;
+                tslSuppleScann.Enabled = false;
+                tslSuppleUp.Enabled = false;
+                bt_NewGroup.Enabled = false;
+                bt_UploadNow.Enabled = false;
+                bt_UploadReceipt.Enabled = false;
+                bt_UploadInvoice.Enabled = true;
+            }
+            else
+            {               
+                tsVatInvoiceScan.Enabled = false;
+                bt_UploadInvoice.Enabled = false;
+                bt_NewGroup.Enabled = true;
+                bt_UploadNow.Enabled = true;
+                bt_UploadReceipt.Enabled = true;
             }
         }
     }

@@ -34,9 +34,10 @@
             this.toolStripLabel2 = new System.Windows.Forms.ToolStripButton();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripButton();
             this.tslNormalScan = new System.Windows.Forms.ToolStripButton();
-            this.toolStripLabel6 = new System.Windows.Forms.ToolStripButton();
             this.tslSuppleScann = new System.Windows.Forms.ToolStripButton();
+            this.toolStripLabel6 = new System.Windows.Forms.ToolStripButton();
             this.tslSuppleUp = new System.Windows.Forms.ToolStripButton();
+            this.tsVatInvoiceScan = new System.Windows.Forms.ToolStripButton();
             this.tslPrePage = new System.Windows.Forms.ToolStripButton();
             this.tslNextPage = new System.Windows.Forms.ToolStripButton();
             this.tslLRotate90 = new System.Windows.Forms.ToolStripButton();
@@ -45,6 +46,7 @@
             this.tslMergeImage = new System.Windows.Forms.ToolStripButton();
             this.tslRevoke = new System.Windows.Forms.ToolStripButton();
             this.tsMessage = new System.Windows.Forms.ToolStripButton();
+            this.tsConfig = new System.Windows.Forms.ToolStripButton();
             this.tslAbout = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
             this.treeView1 = new System.Windows.Forms.TreeView();
@@ -62,9 +64,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.bt_UploadInvoice = new System.Windows.Forms.Button();
+            this.bt_NewGroup = new System.Windows.Forms.Button();
+            this.bt_UploadReceipt = new System.Windows.Forms.Button();
+            this.bt_UploadNow = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.button6 = new System.Windows.Forms.Button();
             this.txtRemark = new System.Windows.Forms.TextBox();
@@ -76,8 +79,8 @@
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.tslOpen = new System.Windows.Forms.ToolStripLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.tslOpen = new System.Windows.Forms.ToolStripLabel();
             this.tsTools.SuspendLayout();
             this.panel1.SuspendLayout();
             this.cmMenu.SuspendLayout();
@@ -114,9 +117,10 @@
             this.toolStripLabel2,
             this.toolStripLabel1,
             this.tslNormalScan,
-            this.toolStripLabel6,
             this.tslSuppleScann,
+            this.toolStripLabel6,
             this.tslSuppleUp,
+            this.tsVatInvoiceScan,
             this.tslPrePage,
             this.tslNextPage,
             this.tslLRotate90,
@@ -125,91 +129,97 @@
             this.tslMergeImage,
             this.tslRevoke,
             this.tsMessage,
+            this.tsConfig,
             this.tslAbout});
             this.tsTools.Location = new System.Drawing.Point(0, 0);
             this.tsTools.Name = "tsTools";
             this.tsTools.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tsTools.Size = new System.Drawing.Size(1553, 83);
+            this.tsTools.Size = new System.Drawing.Size(1242, 44);
             this.tsTools.TabIndex = 1;
             // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStripLabel2.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.toolStripLabel2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStripLabel2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.toolStripLabel2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel2.Image")));
-            this.toolStripLabel2.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(73, 80);
+            this.toolStripLabel2.Size = new System.Drawing.Size(57, 41);
             this.toolStripLabel2.Text = "扫描设定";
             this.toolStripLabel2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripLabel2.Visible = false;
             this.toolStripLabel2.Click += new System.EventHandler(this.toolStripLabel2_Click);
             // 
             // toolStripLabel1
             // 
-            this.toolStripLabel1.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.toolStripLabel1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStripLabel1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel1.Image")));
-            this.toolStripLabel1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.toolStripLabel1.Size = new System.Drawing.Size(61, 80);
+            this.toolStripLabel1.Size = new System.Drawing.Size(51, 41);
             this.toolStripLabel1.Text = "打开(&F)";
             this.toolStripLabel1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolStripLabel1.Click += new System.EventHandler(this.toolStripLabel1_Click);
             // 
             // tslNormalScan
             // 
-            this.tslNormalScan.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tslNormalScan.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslNormalScan.Image = ((System.Drawing.Image)(resources.GetObject("tslNormalScan.Image")));
-            this.tslNormalScan.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tslNormalScan.Name = "tslNormalScan";
-            this.tslNormalScan.Size = new System.Drawing.Size(93, 80);
+            this.tslNormalScan.Size = new System.Drawing.Size(75, 41);
             this.tslNormalScan.Text = "正常扫描(&X)";
             this.tslNormalScan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslNormalScan.Click += new System.EventHandler(this.tslNormalScan_Click);
             // 
-            // toolStripLabel6
-            // 
-            this.toolStripLabel6.AutoSize = false;
-            this.toolStripLabel6.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.toolStripLabel6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel6.Image")));
-            this.toolStripLabel6.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.toolStripLabel6.Name = "toolStripLabel6";
-            this.toolStripLabel6.Size = new System.Drawing.Size(75, 80);
-            this.toolStripLabel6.Text = "替换扫描(&T)";
-            this.toolStripLabel6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolStripLabel6.Click += new System.EventHandler(this.toolStripLabel6_Click);
-            // 
             // tslSuppleScann
             // 
-            this.tslSuppleScann.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.tslSuppleScann.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslSuppleScann.Image = ((System.Drawing.Image)(resources.GetObject("tslSuppleScann.Image")));
-            this.tslSuppleScann.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tslSuppleScann.Name = "tslSuppleScann";
-            this.tslSuppleScann.Size = new System.Drawing.Size(92, 80);
+            this.tslSuppleScann.Size = new System.Drawing.Size(75, 41);
             this.tslSuppleScann.Text = "补充扫描(&B)";
             this.tslSuppleScann.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslSuppleScann.Click += new System.EventHandler(this.tslSuppleScann_Click);
             // 
+            // toolStripLabel6
+            // 
+            this.toolStripLabel6.AutoSize = false;
+            this.toolStripLabel6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.toolStripLabel6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel6.Image")));
+            this.toolStripLabel6.Name = "toolStripLabel6";
+            this.toolStripLabel6.Size = new System.Drawing.Size(80, 40);
+            this.toolStripLabel6.Text = "替换扫描(&T)";
+            this.toolStripLabel6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripLabel6.Click += new System.EventHandler(this.toolStripLabel6_Click);
+            // 
             // tslSuppleUp
             // 
-            this.tslSuppleUp.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.tslSuppleUp.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslSuppleUp.Image = ((System.Drawing.Image)(resources.GetObject("tslSuppleUp.Image")));
-            this.tslSuppleUp.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tslSuppleUp.Name = "tslSuppleUp";
-            this.tslSuppleUp.Size = new System.Drawing.Size(95, 80);
+            this.tslSuppleUp.Size = new System.Drawing.Size(75, 41);
             this.tslSuppleUp.Text = "回单补扫(&H)";
             this.tslSuppleUp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslSuppleUp.Click += new System.EventHandler(this.tslSuppleUp_Click);
             // 
+            // tsVatInvoiceScan
+            // 
+            this.tsVatInvoiceScan.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tsVatInvoiceScan.Image = ((System.Drawing.Image)(resources.GetObject("tsVatInvoiceScan.Image")));
+            this.tsVatInvoiceScan.ImageTransparentColor = System.Drawing.Color.White;
+            this.tsVatInvoiceScan.Name = "tsVatInvoiceScan";
+            this.tsVatInvoiceScan.Size = new System.Drawing.Size(75, 41);
+            this.tsVatInvoiceScan.Text = "发票扫描(&I)";
+            this.tsVatInvoiceScan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tsVatInvoiceScan.Click += new System.EventHandler(this.tsVatInvoiceScan_Click);
+            // 
             // tslPrePage
             // 
             this.tslPrePage.Enabled = false;
-            this.tslPrePage.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.tslPrePage.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslPrePage.Image = ((System.Drawing.Image)(resources.GetObject("tslPrePage.Image")));
-            this.tslPrePage.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tslPrePage.Name = "tslPrePage";
-            this.tslPrePage.Size = new System.Drawing.Size(58, 80);
+            this.tslPrePage.Size = new System.Drawing.Size(45, 41);
             this.tslPrePage.Text = "上一个";
             this.tslPrePage.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslPrePage.Click += new System.EventHandler(this.tslPrePage_Click);
@@ -217,11 +227,10 @@
             // tslNextPage
             // 
             this.tslNextPage.Enabled = false;
-            this.tslNextPage.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.tslNextPage.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslNextPage.Image = ((System.Drawing.Image)(resources.GetObject("tslNextPage.Image")));
-            this.tslNextPage.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tslNextPage.Name = "tslNextPage";
-            this.tslNextPage.Size = new System.Drawing.Size(58, 80);
+            this.tslNextPage.Size = new System.Drawing.Size(45, 41);
             this.tslNextPage.Text = "下一个";
             this.tslNextPage.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslNextPage.Click += new System.EventHandler(this.tslNextPage_Click);
@@ -229,11 +238,10 @@
             // tslLRotate90
             // 
             this.tslLRotate90.Enabled = false;
-            this.tslLRotate90.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.tslLRotate90.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslLRotate90.Image = ((System.Drawing.Image)(resources.GetObject("tslLRotate90.Image")));
-            this.tslLRotate90.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tslLRotate90.Name = "tslLRotate90";
-            this.tslLRotate90.Size = new System.Drawing.Size(76, 80);
+            this.tslLRotate90.Size = new System.Drawing.Size(57, 41);
             this.tslLRotate90.Text = "左旋转90";
             this.tslLRotate90.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslLRotate90.Click += new System.EventHandler(this.tslLRotate90_Click);
@@ -241,11 +249,10 @@
             // tslRRotate90
             // 
             this.tslRRotate90.Enabled = false;
-            this.tslRRotate90.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.tslRRotate90.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslRRotate90.Image = ((System.Drawing.Image)(resources.GetObject("tslRRotate90.Image")));
-            this.tslRRotate90.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tslRRotate90.Name = "tslRRotate90";
-            this.tslRRotate90.Size = new System.Drawing.Size(76, 80);
+            this.tslRRotate90.Size = new System.Drawing.Size(57, 41);
             this.tslRRotate90.Text = "右旋转90";
             this.tslRRotate90.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslRRotate90.Click += new System.EventHandler(this.tslRRotate90_Click);
@@ -253,63 +260,67 @@
             // tslRefresh
             // 
             this.tslRefresh.Enabled = false;
-            this.tslRefresh.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.tslRefresh.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslRefresh.Image = ((System.Drawing.Image)(resources.GetObject("tslRefresh.Image")));
-            this.tslRefresh.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tslRefresh.Name = "tslRefresh";
-            this.tslRefresh.Size = new System.Drawing.Size(73, 80);
+            this.tslRefresh.Size = new System.Drawing.Size(57, 41);
             this.tslRefresh.Text = "重新加载";
             this.tslRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslRefresh.Click += new System.EventHandler(this.tslRefresh_Click);
             // 
             // tslMergeImage
             // 
-            this.tslMergeImage.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.tslMergeImage.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslMergeImage.Image = ((System.Drawing.Image)(resources.GetObject("tslMergeImage.Image")));
-            this.tslMergeImage.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tslMergeImage.Name = "tslMergeImage";
-            this.tslMergeImage.Size = new System.Drawing.Size(73, 80);
+            this.tslMergeImage.Size = new System.Drawing.Size(57, 41);
             this.tslMergeImage.Text = "合并影像";
             this.tslMergeImage.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tslMergeImage.Visible = false;
             this.tslMergeImage.Click += new System.EventHandler(this.tslMergeImage_Click);
             // 
             // tslRevoke
             // 
-            this.tslRevoke.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.tslRevoke.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslRevoke.Image = ((System.Drawing.Image)(resources.GetObject("tslRevoke.Image")));
-            this.tslRevoke.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tslRevoke.Name = "tslRevoke";
-            this.tslRevoke.Size = new System.Drawing.Size(73, 80);
+            this.tslRevoke.Size = new System.Drawing.Size(57, 41);
             this.tslRevoke.Text = "撤销合并";
             this.tslRevoke.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tslRevoke.Visible = false;
             this.tslRevoke.Click += new System.EventHandler(this.tslRevoke_Click);
             // 
             // tsMessage
             // 
-            this.tsMessage.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tsMessage.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tsMessage.Image = ((System.Drawing.Image)(resources.GetObject("tsMessage.Image")));
-            this.tsMessage.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tsMessage.Name = "tsMessage";
             this.tsMessage.RightToLeftAutoMirrorImage = true;
-            this.tsMessage.Size = new System.Drawing.Size(98, 80);
+            this.tsMessage.Size = new System.Drawing.Size(75, 41);
             this.tsMessage.Text = "我的消息(&M)";
             this.tsMessage.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             this.tsMessage.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsMessage.Click += new System.EventHandler(this.tsMessage_Click);
             // 
+            // tsConfig
+            // 
+            this.tsConfig.Image = ((System.Drawing.Image)(resources.GetObject("tsConfig.Image")));
+            this.tsConfig.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsConfig.Name = "tsConfig";
+            this.tsConfig.Size = new System.Drawing.Size(60, 41);
+            this.tsConfig.Text = "参数设置";
+            this.tsConfig.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tsConfig.ToolTipText = "参数设置";
+            this.tsConfig.Click += new System.EventHandler(this.tsConfig_Click);
+            // 
             // tslAbout
             // 
-            this.tslAbout.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.tslAbout.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslAbout.Image = ((System.Drawing.Image)(resources.GetObject("tslAbout.Image")));
-            this.tslAbout.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tslAbout.ImageTransparentColor = System.Drawing.Color.White;
             this.tslAbout.Margin = new System.Windows.Forms.Padding(0);
             this.tslAbout.MergeAction = System.Windows.Forms.MergeAction.Insert;
             this.tslAbout.Name = "tslAbout";
             this.tslAbout.RightToLeftAutoMirrorImage = true;
-            this.tslAbout.Size = new System.Drawing.Size(52, 83);
+            this.tslAbout.Size = new System.Drawing.Size(33, 44);
             this.tslAbout.Text = "关于";
             this.tslAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
@@ -320,7 +331,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(237, 593);
+            this.panel1.Size = new System.Drawing.Size(237, 473);
             this.panel1.TabIndex = 2;
             // 
             // treeView1
@@ -333,7 +344,7 @@
             this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(235, 591);
+            this.treeView1.Size = new System.Drawing.Size(235, 471);
             this.treeView1.TabIndex = 0;
             this.treeView1.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView1_AfterLabelEdit);
             this.treeView1.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.treeView1_ItemDrag);
@@ -352,33 +363,33 @@
             this.tlNodeDelete,
             this.tsBatchRemove});
             this.cmMenu.Name = "cmMenu";
-            this.cmMenu.Size = new System.Drawing.Size(139, 100);
+            this.cmMenu.Size = new System.Drawing.Size(125, 92);
             // 
             // tsAlterName
             // 
             this.tsAlterName.Name = "tsAlterName";
-            this.tsAlterName.Size = new System.Drawing.Size(138, 24);
+            this.tsAlterName.Size = new System.Drawing.Size(124, 22);
             this.tsAlterName.Text = "修改";
             this.tsAlterName.Click += new System.EventHandler(this.tsAlterName_Click);
             // 
             // tsReplaceImage
             // 
             this.tsReplaceImage.Name = "tsReplaceImage";
-            this.tsReplaceImage.Size = new System.Drawing.Size(138, 24);
+            this.tsReplaceImage.Size = new System.Drawing.Size(124, 22);
             this.tsReplaceImage.Text = "替换图片";
             this.tsReplaceImage.Click += new System.EventHandler(this.tsReplaceImage_Click);
             // 
             // tlNodeDelete
             // 
             this.tlNodeDelete.Name = "tlNodeDelete";
-            this.tlNodeDelete.Size = new System.Drawing.Size(138, 24);
+            this.tlNodeDelete.Size = new System.Drawing.Size(124, 22);
             this.tlNodeDelete.Text = "删除";
             this.tlNodeDelete.Click += new System.EventHandler(this.tlNodeDelete_Click);
             // 
             // tsBatchRemove
             // 
             this.tsBatchRemove.Name = "tsBatchRemove";
-            this.tsBatchRemove.Size = new System.Drawing.Size(138, 24);
+            this.tsBatchRemove.Size = new System.Drawing.Size(124, 22);
             this.tsBatchRemove.Text = "批量删除";
             this.tsBatchRemove.Click += new System.EventHandler(this.tsBatchRemove_Click);
             // 
@@ -392,7 +403,7 @@
             this.panel2.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1076, 593);
+            this.panel2.Size = new System.Drawing.Size(765, 473);
             this.panel2.TabIndex = 3;
             this.panel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseDown);
             this.panel2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseMove);
@@ -443,7 +454,7 @@
             this.lblNum.Font = new System.Drawing.Font("新宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNum.Location = new System.Drawing.Point(299, 36);
             this.lblNum.Name = "lblNum";
-            this.lblNum.Size = new System.Drawing.Size(35, 18);
+            this.lblNum.Size = new System.Drawing.Size(28, 14);
             this.lblNum.TabIndex = 4;
             this.lblNum.Text = "0/0";
             // 
@@ -453,7 +464,7 @@
             this.lblNbr.Font = new System.Drawing.Font("新宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNbr.Location = new System.Drawing.Point(3, 36);
             this.lblNbr.Name = "lblNbr";
-            this.lblNbr.Size = new System.Drawing.Size(44, 18);
+            this.lblNbr.Size = new System.Drawing.Size(35, 14);
             this.lblNbr.TabIndex = 3;
             this.lblNbr.Text = "单号";
             // 
@@ -463,7 +474,7 @@
             this.label1.Font = new System.Drawing.Font("新宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(3, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 18);
+            this.label1.Size = new System.Drawing.Size(84, 14);
             this.label1.TabIndex = 2;
             this.label1.Text = "正在上传...";
             // 
@@ -477,49 +488,61 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.button3);
-            this.panel3.Controls.Add(this.button4);
-            this.panel3.Controls.Add(this.button5);
+            this.panel3.Controls.Add(this.bt_UploadInvoice);
+            this.panel3.Controls.Add(this.bt_NewGroup);
+            this.panel3.Controls.Add(this.bt_UploadReceipt);
+            this.panel3.Controls.Add(this.bt_UploadNow);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(237, 114);
             this.panel3.TabIndex = 1;
             // 
-            // button3
+            // bt_UploadInvoice
             // 
-            this.button3.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.button3.Location = new System.Drawing.Point(11, 44);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(92, 27);
-            this.button3.TabIndex = 11;
-            this.button3.Text = "新建分组(&N)";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.bt_UploadInvoice.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.bt_UploadInvoice.Location = new System.Drawing.Point(114, 44);
+            this.bt_UploadInvoice.Name = "bt_UploadInvoice";
+            this.bt_UploadInvoice.Size = new System.Drawing.Size(84, 26);
+            this.bt_UploadInvoice.TabIndex = 12;
+            this.bt_UploadInvoice.Text = "发票上传(&V)";
+            this.bt_UploadInvoice.UseVisualStyleBackColor = true;
+            this.bt_UploadInvoice.Click += new System.EventHandler(this.bt_UploadInvoice_Click);
             // 
-            // button4
+            // bt_NewGroup
             // 
-            this.button4.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.button4.Location = new System.Drawing.Point(114, 12);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(84, 26);
-            this.button4.TabIndex = 10;
-            this.button4.Text = "回单上传(&L)";
-            this.toolTip1.SetToolTip(this.button4, "只上传回单数据");
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.bt_NewGroup.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.bt_NewGroup.Location = new System.Drawing.Point(11, 44);
+            this.bt_NewGroup.Name = "bt_NewGroup";
+            this.bt_NewGroup.Size = new System.Drawing.Size(92, 27);
+            this.bt_NewGroup.TabIndex = 11;
+            this.bt_NewGroup.Text = "新建分组(&N)";
+            this.bt_NewGroup.UseVisualStyleBackColor = true;
+            this.bt_NewGroup.Click += new System.EventHandler(this.bt_NewGroup_Click);
             // 
-            // button5
+            // bt_UploadReceipt
             // 
-            this.button5.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.button5.Location = new System.Drawing.Point(11, 12);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(92, 26);
-            this.button5.TabIndex = 9;
-            this.button5.Text = "实时上传(&U)";
-            this.toolTip1.SetToolTip(this.button5, "可以上传正常扫描，替换扫描，补充扫描生成的数据");
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.bt_UploadReceipt.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.bt_UploadReceipt.Location = new System.Drawing.Point(114, 12);
+            this.bt_UploadReceipt.Name = "bt_UploadReceipt";
+            this.bt_UploadReceipt.Size = new System.Drawing.Size(84, 26);
+            this.bt_UploadReceipt.TabIndex = 10;
+            this.bt_UploadReceipt.Text = "回单上传(&L)";
+            this.toolTip1.SetToolTip(this.bt_UploadReceipt, "只上传回单数据");
+            this.bt_UploadReceipt.UseVisualStyleBackColor = true;
+            this.bt_UploadReceipt.Click += new System.EventHandler(this.bt_UploadReceipt_Click);
+            // 
+            // bt_UploadNow
+            // 
+            this.bt_UploadNow.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.bt_UploadNow.Location = new System.Drawing.Point(11, 12);
+            this.bt_UploadNow.Name = "bt_UploadNow";
+            this.bt_UploadNow.Size = new System.Drawing.Size(92, 26);
+            this.bt_UploadNow.TabIndex = 9;
+            this.bt_UploadNow.Text = "实时上传(&U)";
+            this.toolTip1.SetToolTip(this.bt_UploadNow, "可以上传正常扫描，替换扫描，补充扫描生成的数据");
+            this.bt_UploadNow.UseVisualStyleBackColor = true;
+            this.bt_UploadNow.Click += new System.EventHandler(this.bt_UploadNow_Click);
             // 
             // panel4
             // 
@@ -529,7 +552,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1312, 114);
+            this.panel4.Size = new System.Drawing.Size(1001, 114);
             this.panel4.TabIndex = 4;
             // 
             // button6
@@ -537,7 +560,7 @@
             this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button6.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.button6.Location = new System.Drawing.Point(1226, 16);
+            this.button6.Location = new System.Drawing.Point(915, 16);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(75, 78);
             this.button6.TabIndex = 2;
@@ -553,7 +576,7 @@
             this.txtRemark.Location = new System.Drawing.Point(12, 16);
             this.txtRemark.Multiline = true;
             this.txtRemark.Name = "txtRemark";
-            this.txtRemark.Size = new System.Drawing.Size(1204, 78);
+            this.txtRemark.Size = new System.Drawing.Size(893, 78);
             this.txtRemark.TabIndex = 1;
             // 
             // timer1
@@ -569,7 +592,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(232, 593);
+            this.panel5.Size = new System.Drawing.Size(232, 473);
             this.panel5.TabIndex = 5;
             // 
             // txtLog
@@ -580,7 +603,7 @@
             this.txtLog.Location = new System.Drawing.Point(0, 0);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
-            this.txtLog.Size = new System.Drawing.Size(230, 591);
+            this.txtLog.Size = new System.Drawing.Size(230, 471);
             this.txtLog.TabIndex = 0;
             // 
             // splitContainer1
@@ -598,7 +621,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1553, 593);
+            this.splitContainer1.Size = new System.Drawing.Size(1242, 473);
             this.splitContainer1.SplitterDistance = 237;
             this.splitContainer1.TabIndex = 6;
             // 
@@ -617,8 +640,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.panel5);
-            this.splitContainer2.Size = new System.Drawing.Size(1312, 593);
-            this.splitContainer2.SplitterDistance = 1076;
+            this.splitContainer2.Size = new System.Drawing.Size(1001, 473);
+            this.splitContainer2.SplitterDistance = 765;
             this.splitContainer2.TabIndex = 4;
             // 
             // splitContainer3
@@ -626,7 +649,7 @@
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainer3.IsSplitterFixed = true;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 83);
+            this.splitContainer3.Location = new System.Drawing.Point(0, 44);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -637,8 +660,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer3.Size = new System.Drawing.Size(1553, 711);
-            this.splitContainer3.SplitterDistance = 593;
+            this.splitContainer3.Size = new System.Drawing.Size(1242, 591);
+            this.splitContainer3.SplitterDistance = 473;
             this.splitContainer3.TabIndex = 7;
             // 
             // splitContainer4
@@ -656,13 +679,18 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.panel4);
-            this.splitContainer4.Size = new System.Drawing.Size(1553, 114);
+            this.splitContainer4.Size = new System.Drawing.Size(1242, 114);
             this.splitContainer4.SplitterDistance = 237;
             this.splitContainer4.TabIndex = 5;
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.Tag = "";
             // 
             // tslOpen
             // 
@@ -672,16 +700,11 @@
             this.tslOpen.Text = "打开";
             this.tslOpen.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
-            // toolTip1
-            // 
-            this.toolTip1.IsBalloon = true;
-            this.toolTip1.Tag = "";
-            // 
             // frmIndex
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1553, 794);
+            this.ClientSize = new System.Drawing.Size(1242, 635);
             this.Controls.Add(this.splitContainer3);
             this.Controls.Add(this.tsTools);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -690,6 +713,7 @@
             this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmIndex";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "影像管理工具";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -737,14 +761,13 @@
         private System.Windows.Forms.ToolStripLabel tslOpen;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TreeView treeView1;
         private System.Windows.Forms.ContextMenuStrip cmMenu;
         private System.Windows.Forms.ToolStripMenuItem tlNodeDelete;
         private System.Windows.Forms.ToolStripMenuItem tsAlterName;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button bt_NewGroup;
+        private System.Windows.Forms.Button bt_UploadReceipt;
+        private System.Windows.Forms.Button bt_UploadNow;
         private System.Windows.Forms.PictureBox pbPicture;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Panel panelTip;
@@ -781,6 +804,10 @@
         private System.Windows.Forms.ToolStripMenuItem tsReplaceImage;
         private System.Windows.Forms.ToolStripMenuItem tsBatchRemove;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button bt_UploadInvoice;
+        private System.Windows.Forms.ToolStripButton tsVatInvoiceScan;
+        private System.Windows.Forms.ToolStripButton tsConfig;
+        private System.Windows.Forms.TreeView treeView1;
     }
 }
 

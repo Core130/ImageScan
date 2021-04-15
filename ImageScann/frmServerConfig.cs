@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageScann.BLL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
@@ -18,50 +19,40 @@ namespace ImageScann
             InitializeComponent();
         }
         /// <summary>
-        /// 保存服务器配置地址
+        /// 保存配置信息
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAddress_Click(object sender, EventArgs e)
         {
-            string addressConfig = this.txtAddress.Text.Trim();
-            if (!string.IsNullOrEmpty("addressConfig"))
+            Common common = new Common();
+            string imgUrl = this.txt_imgUrl.Text.Trim();
+            if (!string.IsNullOrEmpty(imgUrl))
             {
-                SetValue("url", addressConfig);
-                Close();
+                common.SetValue("url", imgUrl);
             }
-            else
+
+            string invoiceUrl = this.txt_invoiceUrl.Text.Trim();
+            if (!string.IsNullOrEmpty(invoiceUrl))
             {
-                MessageBox.Show("请输入服务器配置地址!", "提示");
+                common.SetValue("invoiceUrl", invoiceUrl);
             }
+            common.SetValue("bOcr", chbOcr.Checked ? "ON" : "OFF");
+            string scanMode = this.cBox_ScanMode.Text.Trim();
+            if (!string.IsNullOrEmpty(scanMode))
+            {
+                common.SetValue("scanMode", scanMode == "影像模式" ? "image" : "invoice");
+            }
+            Close();            
         }
-        void SetValue(string AppKey, string AppValue)
-        {
 
-            System.Xml.XmlDocument xDoc = new System.Xml.XmlDocument();
-            xDoc.Load(System.Windows.Forms.Application.ExecutablePath + ".config");
-
-            System.Xml.XmlNode xNode;
-            System.Xml.XmlElement xElem1;
-            System.Xml.XmlElement xElem2;
-            xNode = xDoc.SelectSingleNode("//appSettings");
-
-            xElem1 = (System.Xml.XmlElement)xNode.SelectSingleNode("//add[@key='" + AppKey + "']");
-            if (xElem1 != null) xElem1.SetAttribute("value", AppValue);
-            else
-            {
-                xElem2 = xDoc.CreateElement("add");
-                xElem2.SetAttribute("key", AppKey);
-                xElem2.SetAttribute("value", AppValue);
-                xNode.AppendChild(xElem2);
-            }
-            xDoc.Save(System.Windows.Forms.Application.ExecutablePath + ".config");
-            ConfigurationManager.RefreshSection("appSettings");
-        }
 
         private void frmServerConfig_Load(object sender, EventArgs e)
         {
-            txtAddress.Text = ConfigurationManager.AppSettings["url"];
+            txt_imgUrl.Text = ConfigurationManager.AppSettings["url"];
+            txt_invoiceUrl.Text = ConfigurationManager.AppSettings["invoiceUrl"];
+            cBox_ScanMode.Text = ConfigurationManager.AppSettings["scanMode"] == "image" ? "影像模式" : "识票模式";
+            chbOcr.Checked = ConfigurationManager.AppSettings["bOcr"] == "ON";
         }
     }
 }

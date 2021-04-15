@@ -63,7 +63,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(233, 227);
+            this.button1.Location = new System.Drawing.Point(217, 150);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 32);
             this.button1.TabIndex = 2;
@@ -155,7 +155,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(319, 267);
+            this.ClientSize = new System.Drawing.Size(319, 197);
             this.Controls.Add(this.chbAutomaticOrientation);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.chbDeskew);
@@ -169,7 +169,9 @@
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(335, 236);
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(335, 236);
             this.Name = "frmConfig";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "扫描参数设置";
