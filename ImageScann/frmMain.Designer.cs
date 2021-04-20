@@ -34,6 +34,7 @@ namespace ImageScann
             this.ts_Image = new System.Windows.Forms.ToolStripMenuItem();
             this.ts_Invoice = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_index = new System.Windows.Forms.Panel();
+            this.ts_SysConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -42,7 +43,8 @@ namespace ImageScann
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ts_Image,
-            this.ts_Invoice});
+            this.ts_Invoice,
+            this.ts_SysConfig});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1067, 28);
@@ -67,10 +69,17 @@ namespace ImageScann
             // 
             this.panel_index.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel_index.Location = new System.Drawing.Point(0, 28);
-            this.panel_index.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel_index.Margin = new System.Windows.Forms.Padding(4);
             this.panel_index.Name = "panel_index";
             this.panel_index.Size = new System.Drawing.Size(1067, 534);
             this.panel_index.TabIndex = 1;
+            // 
+            // ts_SysConfig
+            // 
+            this.ts_SysConfig.Name = "ts_SysConfig";
+            this.ts_SysConfig.Size = new System.Drawing.Size(83, 24);
+            this.ts_SysConfig.Text = "参数设置";
+            this.ts_SysConfig.Click += new System.EventHandler(this.ts_SysConfig_Click);
             // 
             // frmMain
             // 
@@ -81,7 +90,7 @@ namespace ImageScann
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmMain";
             this.Text = "扫描客户端程序";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -99,5 +108,6 @@ namespace ImageScann
         private System.Windows.Forms.Panel panel_index;
         private System.Windows.Forms.ToolStripMenuItem ts_Image;
         private System.Windows.Forms.ToolStripMenuItem ts_Invoice;
+        private System.Windows.Forms.ToolStripMenuItem ts_SysConfig;
     }
 }

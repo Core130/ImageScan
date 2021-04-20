@@ -1,5 +1,5 @@
 ﻿using ImageScann.BLL;
-using ImageScann.Models;
+using ImageScann.DAL;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

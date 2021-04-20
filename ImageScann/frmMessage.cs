@@ -1,5 +1,5 @@
 ﻿using ImageScann.BLL;
-using ImageScann.Models;
+using ImageScann.DAL;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -12,7 +12,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
-using Message = ImageScann.Models.Message;
+using Message = ImageScann.DAL.Message;
 
 namespace ImageScann
 {

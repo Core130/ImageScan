@@ -5,8 +5,8 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using ImageScann.Models;
-using Message = ImageScann.Models.Message;
+using ImageScann.DAL;
+using Message = ImageScann.DAL.Message;
 
 namespace ImageScann
 {

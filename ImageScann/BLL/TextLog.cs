@@ -9,7 +9,7 @@ namespace ImageScann.BLL
 {
     public class TextLog
     {
-        private string logFile;
+        private readonly string logFile;
         private StreamWriter writer;
         private FileStream fileStream = null;
 
@@ -21,7 +21,7 @@ namespace ImageScann.BLL
         //使用
         //Log log = new Log(AppDomain.CurrentDomain.BaseDirectory + @"/log/Log.txt");
         //log.log(basePath);
-        public void log(string info)
+        public void Log(string info)
         {
             try
             {

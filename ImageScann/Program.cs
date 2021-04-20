@@ -30,9 +30,20 @@ namespace ImageScann
             //        proc.WaitForExit();
             //    }
             //}
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);        
-            Application.Run(new frmMain());
+            string processName = Process.GetCurrentProcess().ProcessName;
+            Process[] processes = Process.GetProcessesByName(processName);
+            //如果该数组长度大于1，说明多次运行
+            if (processes.Length > 1)
+            {
+                MessageBox.Show("扫描客户端程序已运行！");
+                Environment.Exit(1);
+            }
+            else
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new frmMain());
+            }         
 
         }
 

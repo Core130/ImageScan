@@ -1,23 +1,18 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Aspose.BarCode.BarCodeRecognition;
+using ImageScann.BLL;
+using Newtonsoft.Json.Linq;
+using NLog;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
+using System.Configuration;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Net;
-using System.Net.Http;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
-using NLog;
-using Aspose.BarCode.BarCodeRecognition;
-using ImageScann.BLL;
-using System.Configuration;
-using ImageScann.Models;
 
 namespace ImageScann
 {
@@ -38,8 +33,7 @@ namespace ImageScann
         string fileName = string.Empty;
         string filePath = string.Empty;
         string imagePath = string.Empty;
-        string savePath = string.Empty;
-        string vatinvoiceimagesPath = string.Empty;
+        string savePath = string.Empty;        
         TreeNode curNode = null;
         TreeNode replaceNode = null;
         TreeNode viewNode = null;
@@ -61,7 +55,7 @@ namespace ImageScann
         List<TreeNode> selectNode = new List<TreeNode>();//多选的子节点
         List<string> errDataNbr = new List<string>();//记录重复扫描的单号
         private bool isFirstScan = false;//判断本次扫描的图片的条形码是否第一张
-        private static readonly ILogger _logger = LogManager.GetCurrentClassLogger();        
+        private static readonly ILogger _logger = LogManager.GetCurrentClassLogger();
         OpskyScan opskyScan = new OpskyScan();
         public int PageCnt
         {
@@ -128,22 +122,28 @@ namespace ImageScann
             AsposeLicense.ConfigKey();
             string msg;
 
-            bInitFlag = opskyScan.InitOpSkyScan(this, out msg);
+            bInitFlag = opskyScan.InitOpSkyScan(out msg);
             if (!bInitFlag)
             {
                 MessageBox.Show(msg, "提示");
                 tslNormalScan.Enabled = false;
-                toolStripLabel6.Enabled = false;
+                tslReplaceScann.Enabled = false;
                 tslSuppleScann.Enabled = false;
-                tslSuppleUp.Enabled = false;
-                tsVatInvoiceScan.Enabled = false;
+                tslSuppleUp.Enabled = false;                
             }
-            button_Enabled();
+            
+            tslNormalScan.Enabled = true;
+            tslSuppleScann.Enabled = true;
+            tslSuppleUp.Enabled = true;
+            tslReplaceScann.Enabled = true;
+            tslSuppleScann.Enabled = true;
+            tslSuppleUp.Enabled = true;
+            bt_NewGroup.Enabled = true;
+            bt_UploadNow.Enabled = true;
+            bt_UploadReceipt.Enabled = true;
             var basePath = AppDomain.CurrentDomain.BaseDirectory;
             imagePath = Path.Combine(basePath, "images");
-            if (!Directory.Exists(imagePath)) Directory.CreateDirectory(imagePath);
-            vatinvoiceimagesPath = Path.Combine(basePath, "vatinvoiceimages");
-            if (!Directory.Exists(vatinvoiceimagesPath)) Directory.CreateDirectory(vatinvoiceimagesPath);
+            if (!Directory.Exists(imagePath)) Directory.CreateDirectory(imagePath);            
             InitTreeView();
             panelTip.Location = new Point((panelTip.Parent.ClientSize.Width / 2) - (panelTip.Width / 2),
                 (panelTip.Parent.ClientSize.Height / 2) - (panelTip.Height / 2));
@@ -171,16 +171,16 @@ namespace ImageScann
             try
             {
                 TreeNode node = null;
-                if (treeView1.SelectedNode.PrevNode != null)
+                if (tv_Images.SelectedNode.PrevNode != null)
                 {
-                    node = treeView1.SelectedNode.PrevNode;
+                    node = tv_Images.SelectedNode.PrevNode;
                 }
                 else
                 {
-                    node = treeView1.SelectedNode.Parent.LastNode;
+                    node = tv_Images.SelectedNode.Parent.LastNode;
                 }
                 InitImage(node.Tag.ToString());
-                treeView1.SelectedNode = node;
+                tv_Images.SelectedNode = node;
                 viewNode = node;
             }
             catch (Exception) { }
@@ -197,16 +197,16 @@ namespace ImageScann
             try
             {
                 TreeNode node = null;
-                if (treeView1.SelectedNode.NextNode != null)
+                if (tv_Images.SelectedNode.NextNode != null)
                 {
-                    node = treeView1.SelectedNode.NextNode;
+                    node = tv_Images.SelectedNode.NextNode;
                 }
                 else
                 {
-                    node = treeView1.SelectedNode.Parent.FirstNode;
+                    node = tv_Images.SelectedNode.Parent.FirstNode;
                 }
                 InitImage(node.Tag.ToString());
-                treeView1.SelectedNode = node;
+                tv_Images.SelectedNode = node;
                 viewNode = node;
             }
             catch (Exception) { }
@@ -223,7 +223,7 @@ namespace ImageScann
             // 顺时针旋转90度
             bitMap.RotateFlip(RotateFlipType.Rotate270FlipNone);
             pbPicture.Image = bitMap;
-            bitMap.Save(treeView1.SelectedNode.Tag.ToString());
+            bitMap.Save(tv_Images.SelectedNode.Tag.ToString());
             InitImage();
         }
 
@@ -238,7 +238,7 @@ namespace ImageScann
             // 顺时针旋转90度
             bitMap.RotateFlip(RotateFlipType.Rotate90FlipNone);
             pbPicture.Image = bitMap;
-            bitMap.Save(treeView1.SelectedNode.Tag.ToString());
+            bitMap.Save(tv_Images.SelectedNode.Tag.ToString());
             InitImage();
         }
 
@@ -351,7 +351,7 @@ namespace ImageScann
         private void bt_NewGroup_Click(object sender, EventArgs e)
         {
             frmAddGroup addGroup = new frmAddGroup("AddGroup");
-            addGroup.tree = treeView1;
+            addGroup.tree = tv_Images;
             addGroup.ShowDialog();
         }
 
@@ -364,7 +364,7 @@ namespace ImageScann
         private void button1_Click(object sender, EventArgs e)
         {
             frmGroupSearch search = new frmGroupSearch();
-            search.treeview = treeView1;
+            search.treeview = tv_Images;
             search.ShowDialog();
         }
 
@@ -384,7 +384,7 @@ namespace ImageScann
                 }
 
                 txtRemark.Text = "";
-                treeView1.SelectedNode = e.Node;
+                tv_Images.SelectedNode = e.Node;
                 if (e.Node.Nodes.Count == 0 && e.Node.Tag.ToString() != "UploadDocNode" && e.Node.Tag.ToString() != "DocNode" && e.Node.Tag.ToString() != "SupplementDocNode")
                 {
                     viewNode = e.Node;
@@ -425,7 +425,7 @@ namespace ImageScann
             List<TreeNode> parentNode = new List<TreeNode>();
             List<TreeNode> checkNode = new List<TreeNode>();
             bool valid = true;
-            foreach (TreeNode item in treeView1.Nodes)
+            foreach (TreeNode item in tv_Images.Nodes)
             {
                 foreach (TreeNode childItem in item.Nodes)
                 {
@@ -469,7 +469,7 @@ namespace ImageScann
         private void tslRevoke_Click(object sender, EventArgs e)
         {
             List<TreeNode> list = new List<TreeNode>();
-            foreach (TreeNode item in treeView1.Nodes)
+            foreach (TreeNode item in tv_Images.Nodes)
             {
                 foreach (TreeNode childItem in item.Nodes)
                 {
@@ -541,7 +541,7 @@ namespace ImageScann
             parentNode.Nodes.Add(node2);
             //删除节点
             list[0].Remove();
-            var selectNode = treeView1.SelectedNode;
+            var selectNode = tv_Images.SelectedNode;
             if (selectNode != null)
             {
                 InitImage(selectNode.Tag.ToString());
@@ -558,9 +558,9 @@ namespace ImageScann
         {
             try
             {
-                if (MessageBox.Show("你确定要删除 " + this.treeView1.SelectedNode.Text + " 吗?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+                if (MessageBox.Show("你确定要删除 " + this.tv_Images.SelectedNode.Text + " 吗?", "提示", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
-                    TreeNode node = treeView1.SelectedNode;
+                    TreeNode node = tv_Images.SelectedNode;
                     _logger.Info("单笔删除:" + node.Text);
                     if (node.Parent == null)
                     {
@@ -636,11 +636,11 @@ namespace ImageScann
         /// <param name="e"></param>
         private void tsAlterName_Click(object sender, EventArgs e)
         {
-            TreeNode node = treeView1.SelectedNode;
+            TreeNode node = tv_Images.SelectedNode;
             if (node.Nodes.Count == 0 && node.ToString() != "UploadDocNode" && node.Tag.ToString() != "DocNode" &&
                 node.Tag.ToString() != "SupplementDocNode")
             {
-                treeView1.LabelEdit = true;
+                tv_Images.LabelEdit = true;
                 node.BeginEdit();
             }
             else
@@ -729,8 +729,12 @@ namespace ImageScann
             _logger.Info(string.Format("正常扫描结束***************************"));
             //InitImage();
         }
-
-        private void toolStripLabel6_Click(object sender, EventArgs e)
+        /// <summary>
+        /// 替换扫描
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tslReplaceScan_Click(object sender, EventArgs e)
         {
             _logger.Info(string.Format("替换扫描开始***************************"));
             isscann = false;
@@ -739,7 +743,7 @@ namespace ImageScann
             isreplacescann = true;
             issupplementscann = false;
             datanbr = "";
-            var node = treeView1.SelectedNode;
+            var node = tv_Images.SelectedNode;
             if (node == null || node.Parent == null)
             {
                 MessageBox.Show("请在左侧选中要替换扫描的影像!", "提示");
@@ -767,7 +771,7 @@ namespace ImageScann
             isreplacescann = false;
             issupplementscann = true;
             datanbr = "";
-            var node = treeView1.SelectedNode;
+            var node = tv_Images.SelectedNode;
             if (node == null || node.Parent != null)
             {
                 MessageBox.Show("请在左侧选中要补充扫描的单据!", "提示");
@@ -785,10 +789,10 @@ namespace ImageScann
             _logger.Info(string.Format("补充扫描结束***************************"));
         }
 
-        private void toolStripLabel1_Click(object sender, EventArgs e)
+        private void tslOpenImage_Click(object sender, EventArgs e)
         {
             frmOpen frm = new frmOpen();
-            frm.treeView = treeView1;
+            frm.treeView = tv_Images;
             frm.ShowDialog();
         }
         /// <summary>
@@ -805,7 +809,7 @@ namespace ImageScann
                 var newDataNbrs = new List<string>();
                 var oldDataNbrs = new List<string>();
                 var uploadData = new List<UploadDataNbr>();
-                foreach (TreeNode item in treeView1.Nodes)
+                foreach (TreeNode item in tv_Images.Nodes)
                 {
                     if (item.Nodes.Count == 0 || item.Tag.ToString() == "SupplementDocNode" || item.Text.ToString() == "0000000000") continue;
                     if (item.Tag.ToString() == "DocNode")
@@ -894,7 +898,7 @@ namespace ImageScann
 
         private void button6_Click(object sender, EventArgs e)
         {
-            var node = treeView1.SelectedNode;
+            var node = tv_Images.SelectedNode;
             if (node == null || node.Parent == null)
             {
                 MessageBox.Show("请选择要备注的影像!", "提示");
@@ -917,7 +921,7 @@ namespace ImageScann
             frmMessage frm = new frmMessage();
             frm.eventrefresh += MessageRefresh;
             frm.userID = USERID;
-            frm.teee = treeView1;
+            frm.teee = tv_Images;
             frm.ShowDialog();
         }
 
@@ -1007,7 +1011,7 @@ namespace ImageScann
         /// </summary>
         void InitTreeView()
         {
-            treeView1.Nodes.Clear();
+            tv_Images.Nodes.Clear();
             if (!Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\images")) //检查文件夹是否存在
                 Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"\images");
             DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\images");
@@ -1032,8 +1036,8 @@ namespace ImageScann
                             childCode.Tag = file.FullName;
                             node.Nodes.Add(childCode);
                         }
-                        treeView1.Nodes.Add(node);
-                        TreeViewExtension.HideCheckBox(treeView1, node);
+                        tv_Images.Nodes.Add(node);
+                        TreeViewExtension.HideCheckBox(tv_Images, node);
                     }
                 }
                 else if (folder.Name == "supplementimages")
@@ -1053,8 +1057,8 @@ namespace ImageScann
                             childCode.Tag = file.FullName;
                             node.Nodes.Add(childCode);
                         }
-                        treeView1.Nodes.Add(node);
-                        TreeViewExtension.HideCheckBox(treeView1, node);
+                        tv_Images.Nodes.Add(node);
+                        TreeViewExtension.HideCheckBox(tv_Images, node);
                     }
                 }
                 else
@@ -1072,11 +1076,11 @@ namespace ImageScann
                         childCode.Tag = file.FullName;
                         node.Nodes.Add(childCode);
                     }
-                    treeView1.Nodes.Add(node);
-                    TreeViewExtension.HideCheckBox(treeView1, node);
+                    tv_Images.Nodes.Add(node);
+                    TreeViewExtension.HideCheckBox(tv_Images, node);
                 }
             }
-            treeView1.ExpandAll();
+            tv_Images.ExpandAll();
         }
 
         /// <summary>
@@ -1295,8 +1299,8 @@ namespace ImageScann
                             curNode = new TreeNode(dataNbr);
                             curNode.Tag = "DocNode";
                             Directory.CreateDirectory(savePath);
-                            treeView1.Nodes.Add(curNode);
-                            TreeViewExtension.HideCheckBox(treeView1, curNode);
+                            tv_Images.Nodes.Add(curNode);
+                            TreeViewExtension.HideCheckBox(tv_Images, curNode);
                         }
                         else
                         {
@@ -1319,13 +1323,13 @@ namespace ImageScann
                                 curNode = new TreeNode(dataNbr + "重复" + count);
                                 curNode.Tag = "DocNode";
                                 Directory.CreateDirectory(savePath);
-                                treeView1.Nodes.Add(curNode);
-                                TreeViewExtension.HideCheckBox(treeView1, curNode);
+                                tv_Images.Nodes.Add(curNode);
+                                TreeViewExtension.HideCheckBox(tv_Images, curNode);
                             }
                             else
                             {
                                 //根据单据号获取节点
-                                foreach (TreeNode item in treeView1.Nodes)
+                                foreach (TreeNode item in tv_Images.Nodes)
                                 {
                                     if (item.Text == dataNbr)
                                     {
@@ -1356,13 +1360,13 @@ namespace ImageScann
                             curNode = new TreeNode(code);
                             curNode.Tag = "DocNode";
                             Directory.CreateDirectory(savePath);
-                            treeView1.Nodes.Add(curNode);
-                            TreeViewExtension.HideCheckBox(treeView1, curNode);
+                            tv_Images.Nodes.Add(curNode);
+                            TreeViewExtension.HideCheckBox(tv_Images, curNode);
                         }
                         else
                         {
                             //根据单据号获取节点
-                            foreach (TreeNode item in treeView1.Nodes)
+                            foreach (TreeNode item in tv_Images.Nodes)
                             {
                                 if (item.Text == code)
                                 {
@@ -1608,7 +1612,7 @@ namespace ImageScann
         /// <param name="node">合并之后的新节点</param>
         void MergeCallback(TreeNode node)
         {
-            treeView1.SelectedNode = node;
+            tv_Images.SelectedNode = node;
             InitImage(node.Tag.ToString());
             txtRemark.Text = "";
         }
@@ -1711,7 +1715,7 @@ namespace ImageScann
         private void treeView1_DragOver(object sender, DragEventArgs e)
         {
             //获取当前拖拽到的目标节点；
-            TreeNode _node2 = treeView1.GetNodeAt(treeView1.PointToClient(new Point(e.X, e.Y)));
+            TreeNode _node2 = tv_Images.GetNodeAt(tv_Images.PointToClient(new Point(e.X, e.Y)));
 
             //清除前一个目标节点的颜色标识；
             if (_node2 == null || !_node2.Equals(curNode))
@@ -1871,15 +1875,15 @@ namespace ImageScann
         {
             var src = Path.GetFullPath(Path.Combine(srcFolder, filename));
             var dest = Path.GetFullPath(Path.Combine(destFolder, newname));
-            textlog.log("原文件路径:" + src);
-            textlog.log("目标文件路径:" + dest);
+            textlog.Log("原文件路径:" + src);
+            textlog.Log("目标文件路径:" + dest);
             var srcfile = Path.GetFullPath(Path.Combine(srcFolder, filename.Split('.')[0]));
             var destfile = Path.GetFullPath(Path.Combine(destFolder, newname.Split('.')[0]));
 
             if (Directory.Exists(srcfile) && !Directory.Exists(destfile))
             {
-                textlog.log("原文件夹路径:" + srcfile);
-                textlog.log("目标文件夹路径:" + destfile);
+                textlog.Log("原文件夹路径:" + srcfile);
+                textlog.Log("目标文件夹路径:" + destfile);
                 Directory.Move(srcfile, destfile);
                 DirectoryInfo dir = new DirectoryInfo(destfile);
                 foreach (FileInfo file in dir.GetFiles("*.jpg"))
@@ -1897,8 +1901,8 @@ namespace ImageScann
                             fla = false;
                     }
                     string a = Path.GetFullPath(Path.Combine(destfile, newname.Split('.')[0].Split('_')[0] + "_" + count)) + ".jpg";
-                    textlog.log("原文件夹2路径:" + file.FullName);
-                    textlog.log("目标文件夹2路径:" + a);
+                    textlog.Log("原文件夹2路径:" + file.FullName);
+                    textlog.Log("目标文件夹2路径:" + a);
                     File.Move(file.FullName, a);
                 }
             }
@@ -1950,7 +1954,7 @@ namespace ImageScann
             frmAddGroup addGroup = new frmAddGroup("");
             addGroup.Text = "请输入单据号";
             datanbr = "";
-            addGroup.tree = treeView1;
+            addGroup.tree = tv_Images;
             addGroup.eventgroup += GetGroupName;
             addGroup.ShowDialog();
 
@@ -1986,7 +1990,7 @@ namespace ImageScann
             _logger.Info(string.Format("回单上传开始***************************"));
             bt_UploadReceipt.Enabled = false;
             var uploadData = new List<UploadDataNbr>();
-            foreach (TreeNode item in treeView1.Nodes)
+            foreach (TreeNode item in tv_Images.Nodes)
             {
                 if (item.Nodes.Count == 0 || item.Tag.ToString() == "DocNode" || item.Text.ToString() == "0000000000") continue;
                 if (item.Tag.ToString() == "SupplementDocNode")
@@ -2032,7 +2036,7 @@ namespace ImageScann
         {
             if (e.Alt && e.KeyCode == Keys.F)
             {
-                toolStripLabel1_Click(null, null);
+                tslOpenImage_Click(null, null);
             }
             else if (e.Alt && e.KeyCode == Keys.X)
             {
@@ -2040,7 +2044,7 @@ namespace ImageScann
             }
             else if (e.Alt && e.KeyCode == Keys.T)
             {
-                toolStripLabel6_Click(null, null);
+                tslReplaceScan_Click(null, null);
             }
             else if (e.Alt && e.KeyCode == Keys.B)
             {
@@ -2100,7 +2104,7 @@ namespace ImageScann
                         MessageBox.Show("仅能上传jpg格式的图片!", "错误");
                         return;
                     }
-                    TreeNode node = treeView1.SelectedNode;
+                    TreeNode node = tv_Images.SelectedNode;
                     var destPath = node.Tag.ToString();
                     var destNo = node.Text;
                     if (File.Exists(destPath))
@@ -2181,199 +2185,111 @@ namespace ImageScann
             {
                 MessageBox.Show("请勾选要删除的记录", "提示", MessageBoxButtons.OK, MessageBoxIcon.Question);
             }
-        }  
-
-        private void bt_UploadInvoice_Click(object sender, EventArgs e)
+        }                
+       
+        public delegate void SetPos(int ipos, int count);
+        public delegate void UploadCallBack(string dataNbr, List<string> paths, List<string> error, int kind, int docType);
+        public delegate void SetProgressBar(int num, int len);
+        public delegate void InitTipInfo(string dataNbr, int len);
+        public class UploadDataNbr
         {
-            Vat_Invoice invoice = new Vat_Invoice();
-            Vat_InvoiceBll invoiceBll = new Vat_InvoiceBll();
-            invoice.InvoiceType = "专票";
-            invoice.InvoiceTypeOrg = "增值税专用发票";
-            invoice.InvoiceCode = "3200203130";
-            invoice.InvoiceNumber = "28679272";
-            invoice.InvoiceDate = "2021-03-11";
-            invoice.PurchaserName = "八马茶业股份有限公司";
-            invoice.PurchaserRegisterNum = "91440300279366439J";
-            invoice.PurchaserAddress = "深圳市罗湖区南湖街道东门南路华都园大厦7楼0755-02389008";
-            invoice.PurchaserBank = "招行深圳市蔡屋围支行755911566410401";
-            invoice.SellerName = "宜兴市荟砂紫砂文化有限公司";
-            invoice.SellerRegisterNum = "91320282MA1Y2FW80W";
-            invoice.SellerAddress = "宣兴市新街街道怡丰苑2幢新城路375号13961536C86";
-            invoice.SellerBank = "中国农业银行股份有限公司宜兴环科园支行10648301040017287";
-            invoice.TotalAmount = 99782.17M;
-            invoice.TotalTaxAmount = 100780.00M;
-            invoice.TotalTax = 997.83M;
-            invoice.Payee = "许翔";
-            invoice.Checker = "任沽";
-            invoice.NoteDrawer = "沈祥";
-            invoice.Remarks = "各刀";
-            invoice.CreateTime = DateTime.Now;
-            invoice.PushStatus = 0;
-            invoiceBll.AddVatInvoice(invoice);
-
+            public string DataNbr { get; set; }
+            public int Kind { get; set; }
         }
-        /// <summary>
-        /// 发票扫描
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tsVatInvoiceScan_Click(object sender, EventArgs e)
+        public class ScanUpload
         {
-            _logger.Info(string.Format("发票扫描开始***************************"));
-            txtLog.Clear();
-            isscann = true;
-            bt_UploadInvoice.Enabled = true;
-            datanbr = "";
-            tsVatInvoiceScan.Enabled = false;
-            savePath = "";
-            isFirstScan = false;
-            if (bInitFlag)
+            UploadCallBack callback;
+            SetProgressBar setProgressBar;
+            InitTipInfo initTipInfo;
+            List<UploadDataNbr> uploadDataNbr;
+            string url;
+            string userID;
+            public bool cancelUpload = false;
+            private static readonly ILogger _logger = LogManager.GetCurrentClassLogger();
+            // 构造函数
+            public ScanUpload(UploadCallBack _callback, SetProgressBar _setProgressBar, InitTipInfo _initTipInfo, string _url, string _userID, List<UploadDataNbr> _uploadDataNbr)
             {
-                opskyScan.InvoiceScan(this);
-                tsVatInvoiceScan.Enabled = true;
+                callback = _callback;
+                setProgressBar = _setProgressBar;
+                initTipInfo = _initTipInfo;
+                uploadDataNbr = _uploadDataNbr;
+                url = _url;
+                userID = _userID;
             }
-            _logger.Info(string.Format("发票扫描结束***************************"));
-            //InitImage();
-        }
 
-        private void tsConfig_Click(object sender, EventArgs e)
-        {
-            frmServerConfig frm = new frmServerConfig();            
-            frm.ShowDialog();
-            button_Enabled();
-        }
-        /// <summary>
-        /// 加载界面按钮状态
-        /// </summary>
-        void button_Enabled()
-        {
-            string scanMode = ConfigurationManager.AppSettings["scanMode"];  //读取识别模式 image：影像模式 invoice:识别发票模式
-            if (scanMode == "invoice")
+            public void Upload()
             {
-                tslNormalScan.Enabled = false;
-                toolStripLabel6.Enabled = false;
-                tslSuppleScann.Enabled = false;
-                tslSuppleUp.Enabled = false;                
-                toolStripLabel6.Enabled = false;
-                tslSuppleScann.Enabled = false;
-                tslSuppleUp.Enabled = false;
-                bt_NewGroup.Enabled = false;
-                bt_UploadNow.Enabled = false;
-                bt_UploadReceipt.Enabled = false;
-                bt_UploadInvoice.Enabled = true;
-            }
-            else
-            {               
-                tsVatInvoiceScan.Enabled = false;
-                bt_UploadInvoice.Enabled = false;
-                bt_NewGroup.Enabled = true;
-                bt_UploadNow.Enabled = true;
-                bt_UploadReceipt.Enabled = true;
-            }
-        }
-    }
-    public delegate void SetPos(int ipos, int count);
-    public delegate void UploadCallBack(string dataNbr, List<string> paths, List<string> error, int kind, int docType);
-    public delegate void SetProgressBar(int num, int len);
-    public delegate void InitTipInfo(string dataNbr, int len);
-    public class UploadDataNbr
-    {
-        public string DataNbr { get; set; }
-        public int Kind { get; set; }
-    }
-    public class ScanUpload
-    {
-        UploadCallBack callback;
-        SetProgressBar setProgressBar;
-        InitTipInfo initTipInfo;
-        List<UploadDataNbr> uploadDataNbr;
-        string url;
-        string userID;
-        public bool cancelUpload = false;
-        private static readonly ILogger _logger = LogManager.GetCurrentClassLogger();
-        // 构造函数
-        public ScanUpload(UploadCallBack _callback, SetProgressBar _setProgressBar, InitTipInfo _initTipInfo, string _url, string _userID, List<UploadDataNbr> _uploadDataNbr)
-        {
-            callback = _callback;
-            setProgressBar = _setProgressBar;
-            initTipInfo = _initTipInfo;
-            uploadDataNbr = _uploadDataNbr;
-            url = _url;
-            userID = _userID;
-        }
-
-        public void Upload()
-        {
-            var error = new List<string>();
-            var paths = new List<string>();
-            var dataNbr = "";
-            var fileName = "";
-            try
-            {
-
-                foreach (var item in uploadDataNbr)
+                var error = new List<string>();
+                var paths = new List<string>();
+                var dataNbr = "";
+                var fileName = "";
+                try
                 {
-                    if (cancelUpload) break;
-                    var path = "images/" + (item.Kind == 1 ? "uploadimages/" : item.Kind == 2 ? "supplementimages/" : "") + item.DataNbr;
-                    path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
-                    var files = Directory.GetFiles(path, "*.jpg");
-                    initTipInfo(item.DataNbr, files.Length);
-                    var num = 0;
-                    var counts = 0;
-                    foreach (var fileInfo in files)
+
+                    foreach (var item in uploadDataNbr)
                     {
                         if (cancelUpload) break;
-                        var txtPath = fileInfo.Replace(".jpg", ".txt");
-                        dataNbr = item.DataNbr;
-                        fileName = Path.GetFileName(fileInfo);
-                        if (Path.GetFileName(fileInfo).Replace(".jpg", "").Split('_').Length == 2)
+                        var path = "images/" + (item.Kind == 1 ? "uploadimages/" : item.Kind == 2 ? "supplementimages/" : "") + item.DataNbr;
+                        path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
+                        var files = Directory.GetFiles(path, "*.jpg");
+                        initTipInfo(item.DataNbr, files.Length);
+                        var num = 0;
+                        var counts = 0;
+                        foreach (var fileInfo in files)
                         {
-                            var count = Path.GetFileName(fileInfo).Replace(".jpg", "").Split('_')[1];
+                            if (cancelUpload) break;
+                            var txtPath = fileInfo.Replace(".jpg", ".txt");
+                            dataNbr = item.DataNbr;
+                            fileName = Path.GetFileName(fileInfo);
+                            if (Path.GetFileName(fileInfo).Replace(".jpg", "").Split('_').Length == 2)
+                            {
+                                var count = Path.GetFileName(fileInfo).Replace(".jpg", "").Split('_')[1];
 
-                            if (!int.TryParse(count, out counts))
+                                if (!int.TryParse(count, out counts))
+                                {
+                                    _logger.Info("上传异常数据:" + "单号:" + item.DataNbr + ",影像:" + Path.GetFileName(fileInfo) + ",影像名称格式错误");
+                                    error.Add("单号:" + item.DataNbr + ",影像:" + Path.GetFileName(fileInfo) + ",影像名称格式错误");
+                                    continue;
+                                }
+                            }
+                            else
                             {
                                 _logger.Info("上传异常数据:" + "单号:" + item.DataNbr + ",影像:" + Path.GetFileName(fileInfo) + ",影像名称格式错误");
                                 error.Add("单号:" + item.DataNbr + ",影像:" + Path.GetFileName(fileInfo) + ",影像名称格式错误");
                                 continue;
                             }
+                            var nums = counts.ToString();
+                            Common common = new Common();
+                            var result = common.UploadImage(this.url, item.DataNbr, fileInfo, Path.GetFileName(fileInfo), this.userID, "", nums);
+                            var jsonResult = JObject.Parse(result);
+                            if (Convert.ToBoolean(jsonResult["success"].ToString()))
+                            {
+                                num += 1;
+                                paths.Add(fileInfo);
+                            }
+                            else
+                            {
+                                _logger.Info("上传异常数据:" + "单号:" + item.DataNbr + ",影像:" + Path.GetFileName(fileInfo) + "," + jsonResult["info"].ToString());
+                                error.Add("单号:" + item.DataNbr + ",影像:" + Path.GetFileName(fileInfo) + "," + jsonResult["info"].ToString());
+                            }
+                            setProgressBar(num, files.Length);
                         }
-                        else
-                        {
-                            _logger.Info("上传异常数据:" + "单号:" + item.DataNbr + ",影像:" + Path.GetFileName(fileInfo) + ",影像名称格式错误");
-                            error.Add("单号:" + item.DataNbr + ",影像:" + Path.GetFileName(fileInfo) + ",影像名称格式错误");
-                            continue;
-                        }
-                        var nums = counts.ToString();
-                        Common common = new Common();
-                        var result = common.UploadImage(this.url, item.DataNbr, fileInfo, Path.GetFileName(fileInfo), this.userID, "", nums);
-                        var jsonResult = JObject.Parse(result);
-                        if (Convert.ToBoolean(jsonResult["success"].ToString()))
-                        {
-                            num += 1;
-                            paths.Add(fileInfo);
-                        }
-                        else
-                        {
-                            _logger.Info("上传异常数据:" + "单号:" + item.DataNbr + ",影像:" + Path.GetFileName(fileInfo) + "," + jsonResult["info"].ToString());
-                            error.Add("单号:" + item.DataNbr + ",影像:" + Path.GetFileName(fileInfo) + "," + jsonResult["info"].ToString());
-                        }
-                        setProgressBar(num, files.Length);
+                        if (callback != null) callback(item.DataNbr, paths, new List<string>(), 0, item.Kind);  // 通过委托,将数据回传给回调函数
+                        Thread.Sleep(1000);
                     }
-                    if (callback != null) callback(item.DataNbr, paths, new List<string>(), 0, item.Kind);  // 通过委托,将数据回传给回调函数
-                    Thread.Sleep(1000);
+                    if (callback != null) callback("", new List<string>(), error, cancelUpload ? 2 : 1, 0);  // 通过委托,将数据回传给回调函数
+
                 }
-                if (callback != null) callback("", new List<string>(), error, cancelUpload ? 2 : 1, 0);  // 通过委托,将数据回传给回调函数
+                catch (Exception e)
+                {
+                    error.Add("单号:" + dataNbr + ",影像:" + fileName + "," + e.ToString());
+                    _logger.Info("上传异常:" + "单号:" + dataNbr + ",影像:" + fileName + "," + e.ToString());
+                    if (callback != null) callback("", paths, error, cancelUpload ? 2 : 1, 0); // 通过委托,将数据回传给回调函数
+                }
+            }
 
-            }
-            catch (Exception e)
-            {
-                error.Add("单号:" + dataNbr + ",影像:" + fileName + "," + e.ToString());
-                _logger.Info("上传异常:" + "单号:" + dataNbr + ",影像:" + fileName + "," + e.ToString());
-                if (callback != null) callback("", paths, error, cancelUpload ? 2 : 1, 0); // 通过委托,将数据回传给回调函数
-            }
+
+
         }
-
-
-
     }
 }

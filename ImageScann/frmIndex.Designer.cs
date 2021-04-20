@@ -31,13 +31,12 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmIndex));
             this.tsTools = new System.Windows.Forms.ToolStrip();
-            this.toolStripLabel2 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripButton();
+            this.tslConfig = new System.Windows.Forms.ToolStripButton();
+            this.tslOpenImage = new System.Windows.Forms.ToolStripButton();
             this.tslNormalScan = new System.Windows.Forms.ToolStripButton();
             this.tslSuppleScann = new System.Windows.Forms.ToolStripButton();
-            this.toolStripLabel6 = new System.Windows.Forms.ToolStripButton();
+            this.tslReplaceScann = new System.Windows.Forms.ToolStripButton();
             this.tslSuppleUp = new System.Windows.Forms.ToolStripButton();
-            this.tsVatInvoiceScan = new System.Windows.Forms.ToolStripButton();
             this.tslPrePage = new System.Windows.Forms.ToolStripButton();
             this.tslNextPage = new System.Windows.Forms.ToolStripButton();
             this.tslLRotate90 = new System.Windows.Forms.ToolStripButton();
@@ -46,10 +45,9 @@
             this.tslMergeImage = new System.Windows.Forms.ToolStripButton();
             this.tslRevoke = new System.Windows.Forms.ToolStripButton();
             this.tsMessage = new System.Windows.Forms.ToolStripButton();
-            this.tsConfig = new System.Windows.Forms.ToolStripButton();
             this.tslAbout = new System.Windows.Forms.ToolStripButton();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.tv_Images = new System.Windows.Forms.TreeView();
             this.cmMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsAlterName = new System.Windows.Forms.ToolStripMenuItem();
             this.tsReplaceImage = new System.Windows.Forms.ToolStripMenuItem();
@@ -64,7 +62,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.bt_UploadInvoice = new System.Windows.Forms.Button();
             this.bt_NewGroup = new System.Windows.Forms.Button();
             this.bt_UploadReceipt = new System.Windows.Forms.Button();
             this.bt_UploadNow = new System.Windows.Forms.Button();
@@ -114,13 +111,12 @@
             this.tsTools.Font = new System.Drawing.Font("微软雅黑", 9F);
             this.tsTools.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.tsTools.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripLabel2,
-            this.toolStripLabel1,
+            this.tslConfig,
+            this.tslOpenImage,
             this.tslNormalScan,
             this.tslSuppleScann,
-            this.toolStripLabel6,
+            this.tslReplaceScann,
             this.tslSuppleUp,
-            this.tsVatInvoiceScan,
             this.tslPrePage,
             this.tslNextPage,
             this.tslLRotate90,
@@ -129,44 +125,43 @@
             this.tslMergeImage,
             this.tslRevoke,
             this.tsMessage,
-            this.tsConfig,
             this.tslAbout});
             this.tsTools.Location = new System.Drawing.Point(0, 0);
             this.tsTools.Name = "tsTools";
             this.tsTools.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.tsTools.Size = new System.Drawing.Size(1242, 44);
+            this.tsTools.Size = new System.Drawing.Size(1242, 43);
             this.tsTools.TabIndex = 1;
             // 
-            // toolStripLabel2
+            // tslConfig
             // 
-            this.toolStripLabel2.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStripLabel2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.toolStripLabel2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.toolStripLabel2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel2.Image")));
-            this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(57, 41);
-            this.toolStripLabel2.Text = "扫描设定";
-            this.toolStripLabel2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolStripLabel2.Visible = false;
-            this.toolStripLabel2.Click += new System.EventHandler(this.toolStripLabel2_Click);
+            this.tslConfig.BackColor = System.Drawing.SystemColors.Control;
+            this.tslConfig.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tslConfig.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.tslConfig.Image = ((System.Drawing.Image)(resources.GetObject("tslConfig.Image")));
+            this.tslConfig.Name = "tslConfig";
+            this.tslConfig.Size = new System.Drawing.Size(71, 40);
+            this.tslConfig.Text = "扫描设定";
+            this.tslConfig.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tslConfig.Visible = false;
+            this.tslConfig.Click += new System.EventHandler(this.toolStripLabel2_Click);
             // 
-            // toolStripLabel1
+            // tslOpenImage
             // 
-            this.toolStripLabel1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.toolStripLabel1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel1.Image")));
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
-            this.toolStripLabel1.Size = new System.Drawing.Size(51, 41);
-            this.toolStripLabel1.Text = "打开(&F)";
-            this.toolStripLabel1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolStripLabel1.Click += new System.EventHandler(this.toolStripLabel1_Click);
+            this.tslOpenImage.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tslOpenImage.Image = ((System.Drawing.Image)(resources.GetObject("tslOpenImage.Image")));
+            this.tslOpenImage.Name = "tslOpenImage";
+            this.tslOpenImage.Overflow = System.Windows.Forms.ToolStripItemOverflow.Never;
+            this.tslOpenImage.Size = new System.Drawing.Size(65, 40);
+            this.tslOpenImage.Text = "打开(&F)";
+            this.tslOpenImage.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tslOpenImage.Click += new System.EventHandler(this.tslOpenImage_Click);
             // 
             // tslNormalScan
             // 
             this.tslNormalScan.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslNormalScan.Image = ((System.Drawing.Image)(resources.GetObject("tslNormalScan.Image")));
             this.tslNormalScan.Name = "tslNormalScan";
-            this.tslNormalScan.Size = new System.Drawing.Size(75, 41);
+            this.tslNormalScan.Size = new System.Drawing.Size(95, 40);
             this.tslNormalScan.Text = "正常扫描(&X)";
             this.tslNormalScan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslNormalScan.Click += new System.EventHandler(this.tslNormalScan_Click);
@@ -176,42 +171,31 @@
             this.tslSuppleScann.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslSuppleScann.Image = ((System.Drawing.Image)(resources.GetObject("tslSuppleScann.Image")));
             this.tslSuppleScann.Name = "tslSuppleScann";
-            this.tslSuppleScann.Size = new System.Drawing.Size(75, 41);
+            this.tslSuppleScann.Size = new System.Drawing.Size(95, 40);
             this.tslSuppleScann.Text = "补充扫描(&B)";
             this.tslSuppleScann.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslSuppleScann.Click += new System.EventHandler(this.tslSuppleScann_Click);
             // 
-            // toolStripLabel6
+            // tslReplaceScann
             // 
-            this.toolStripLabel6.AutoSize = false;
-            this.toolStripLabel6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.toolStripLabel6.Image = ((System.Drawing.Image)(resources.GetObject("toolStripLabel6.Image")));
-            this.toolStripLabel6.Name = "toolStripLabel6";
-            this.toolStripLabel6.Size = new System.Drawing.Size(80, 40);
-            this.toolStripLabel6.Text = "替换扫描(&T)";
-            this.toolStripLabel6.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.toolStripLabel6.Click += new System.EventHandler(this.toolStripLabel6_Click);
+            this.tslReplaceScann.AutoSize = false;
+            this.tslReplaceScann.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tslReplaceScann.Image = ((System.Drawing.Image)(resources.GetObject("tslReplaceScann.Image")));
+            this.tslReplaceScann.Name = "tslReplaceScann";
+            this.tslReplaceScann.Size = new System.Drawing.Size(80, 40);
+            this.tslReplaceScann.Text = "替换扫描(&T)";
+            this.tslReplaceScann.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.tslReplaceScann.Click += new System.EventHandler(this.tslReplaceScan_Click);
             // 
             // tslSuppleUp
             // 
             this.tslSuppleUp.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslSuppleUp.Image = ((System.Drawing.Image)(resources.GetObject("tslSuppleUp.Image")));
             this.tslSuppleUp.Name = "tslSuppleUp";
-            this.tslSuppleUp.Size = new System.Drawing.Size(75, 41);
+            this.tslSuppleUp.Size = new System.Drawing.Size(95, 40);
             this.tslSuppleUp.Text = "回单补扫(&H)";
             this.tslSuppleUp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslSuppleUp.Click += new System.EventHandler(this.tslSuppleUp_Click);
-            // 
-            // tsVatInvoiceScan
-            // 
-            this.tsVatInvoiceScan.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.tsVatInvoiceScan.Image = ((System.Drawing.Image)(resources.GetObject("tsVatInvoiceScan.Image")));
-            this.tsVatInvoiceScan.ImageTransparentColor = System.Drawing.Color.White;
-            this.tsVatInvoiceScan.Name = "tsVatInvoiceScan";
-            this.tsVatInvoiceScan.Size = new System.Drawing.Size(75, 41);
-            this.tsVatInvoiceScan.Text = "发票扫描(&I)";
-            this.tsVatInvoiceScan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tsVatInvoiceScan.Click += new System.EventHandler(this.tsVatInvoiceScan_Click);
             // 
             // tslPrePage
             // 
@@ -219,7 +203,7 @@
             this.tslPrePage.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslPrePage.Image = ((System.Drawing.Image)(resources.GetObject("tslPrePage.Image")));
             this.tslPrePage.Name = "tslPrePage";
-            this.tslPrePage.Size = new System.Drawing.Size(45, 41);
+            this.tslPrePage.Size = new System.Drawing.Size(56, 40);
             this.tslPrePage.Text = "上一个";
             this.tslPrePage.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslPrePage.Click += new System.EventHandler(this.tslPrePage_Click);
@@ -230,7 +214,7 @@
             this.tslNextPage.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslNextPage.Image = ((System.Drawing.Image)(resources.GetObject("tslNextPage.Image")));
             this.tslNextPage.Name = "tslNextPage";
-            this.tslNextPage.Size = new System.Drawing.Size(45, 41);
+            this.tslNextPage.Size = new System.Drawing.Size(56, 40);
             this.tslNextPage.Text = "下一个";
             this.tslNextPage.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslNextPage.Click += new System.EventHandler(this.tslNextPage_Click);
@@ -241,7 +225,7 @@
             this.tslLRotate90.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslLRotate90.Image = ((System.Drawing.Image)(resources.GetObject("tslLRotate90.Image")));
             this.tslLRotate90.Name = "tslLRotate90";
-            this.tslLRotate90.Size = new System.Drawing.Size(57, 41);
+            this.tslLRotate90.Size = new System.Drawing.Size(72, 40);
             this.tslLRotate90.Text = "左旋转90";
             this.tslLRotate90.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslLRotate90.Click += new System.EventHandler(this.tslLRotate90_Click);
@@ -252,7 +236,7 @@
             this.tslRRotate90.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslRRotate90.Image = ((System.Drawing.Image)(resources.GetObject("tslRRotate90.Image")));
             this.tslRRotate90.Name = "tslRRotate90";
-            this.tslRRotate90.Size = new System.Drawing.Size(57, 41);
+            this.tslRRotate90.Size = new System.Drawing.Size(72, 40);
             this.tslRRotate90.Text = "右旋转90";
             this.tslRRotate90.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslRRotate90.Click += new System.EventHandler(this.tslRRotate90_Click);
@@ -263,7 +247,7 @@
             this.tslRefresh.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslRefresh.Image = ((System.Drawing.Image)(resources.GetObject("tslRefresh.Image")));
             this.tslRefresh.Name = "tslRefresh";
-            this.tslRefresh.Size = new System.Drawing.Size(57, 41);
+            this.tslRefresh.Size = new System.Drawing.Size(71, 40);
             this.tslRefresh.Text = "重新加载";
             this.tslRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslRefresh.Click += new System.EventHandler(this.tslRefresh_Click);
@@ -273,7 +257,7 @@
             this.tslMergeImage.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslMergeImage.Image = ((System.Drawing.Image)(resources.GetObject("tslMergeImage.Image")));
             this.tslMergeImage.Name = "tslMergeImage";
-            this.tslMergeImage.Size = new System.Drawing.Size(57, 41);
+            this.tslMergeImage.Size = new System.Drawing.Size(71, 40);
             this.tslMergeImage.Text = "合并影像";
             this.tslMergeImage.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslMergeImage.Click += new System.EventHandler(this.tslMergeImage_Click);
@@ -283,7 +267,7 @@
             this.tslRevoke.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.tslRevoke.Image = ((System.Drawing.Image)(resources.GetObject("tslRevoke.Image")));
             this.tslRevoke.Name = "tslRevoke";
-            this.tslRevoke.Size = new System.Drawing.Size(57, 41);
+            this.tslRevoke.Size = new System.Drawing.Size(71, 40);
             this.tslRevoke.Text = "撤销合并";
             this.tslRevoke.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tslRevoke.Click += new System.EventHandler(this.tslRevoke_Click);
@@ -294,22 +278,11 @@
             this.tsMessage.Image = ((System.Drawing.Image)(resources.GetObject("tsMessage.Image")));
             this.tsMessage.Name = "tsMessage";
             this.tsMessage.RightToLeftAutoMirrorImage = true;
-            this.tsMessage.Size = new System.Drawing.Size(75, 41);
+            this.tsMessage.Size = new System.Drawing.Size(95, 40);
             this.tsMessage.Text = "我的消息(&M)";
             this.tsMessage.TextDirection = System.Windows.Forms.ToolStripTextDirection.Horizontal;
             this.tsMessage.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsMessage.Click += new System.EventHandler(this.tsMessage_Click);
-            // 
-            // tsConfig
-            // 
-            this.tsConfig.Image = ((System.Drawing.Image)(resources.GetObject("tsConfig.Image")));
-            this.tsConfig.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsConfig.Name = "tsConfig";
-            this.tsConfig.Size = new System.Drawing.Size(60, 41);
-            this.tsConfig.Text = "参数设置";
-            this.tsConfig.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.tsConfig.ToolTipText = "参数设置";
-            this.tsConfig.Click += new System.EventHandler(this.tsConfig_Click);
             // 
             // tslAbout
             // 
@@ -320,39 +293,39 @@
             this.tslAbout.MergeAction = System.Windows.Forms.MergeAction.Insert;
             this.tslAbout.Name = "tslAbout";
             this.tslAbout.RightToLeftAutoMirrorImage = true;
-            this.tslAbout.Size = new System.Drawing.Size(33, 44);
+            this.tslAbout.Size = new System.Drawing.Size(41, 43);
             this.tslAbout.Text = "关于";
             this.tslAbout.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             // 
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.treeView1);
+            this.panel1.Controls.Add(this.tv_Images);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(237, 473);
+            this.panel1.Size = new System.Drawing.Size(237, 474);
             this.panel1.TabIndex = 2;
             // 
-            // treeView1
+            // tv_Images
             // 
-            this.treeView1.AllowDrop = true;
-            this.treeView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeView1.CheckBoxes = true;
-            this.treeView1.ContextMenuStrip = this.cmMenu;
-            this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.treeView1.Location = new System.Drawing.Point(0, 0);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(235, 471);
-            this.treeView1.TabIndex = 0;
-            this.treeView1.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView1_AfterLabelEdit);
-            this.treeView1.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.treeView1_ItemDrag);
-            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
-            this.treeView1.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeView1_DragDrop);
-            this.treeView1.DragEnter += new System.Windows.Forms.DragEventHandler(this.treeView1_DragEnter);
-            this.treeView1.DragOver += new System.Windows.Forms.DragEventHandler(this.treeView1_DragOver);
-            this.treeView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.treeView1_KeyDown);
+            this.tv_Images.AllowDrop = true;
+            this.tv_Images.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tv_Images.CheckBoxes = true;
+            this.tv_Images.ContextMenuStrip = this.cmMenu;
+            this.tv_Images.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tv_Images.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.tv_Images.Location = new System.Drawing.Point(0, 0);
+            this.tv_Images.Name = "tv_Images";
+            this.tv_Images.Size = new System.Drawing.Size(235, 472);
+            this.tv_Images.TabIndex = 0;
+            this.tv_Images.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView1_AfterLabelEdit);
+            this.tv_Images.ItemDrag += new System.Windows.Forms.ItemDragEventHandler(this.treeView1_ItemDrag);
+            this.tv_Images.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
+            this.tv_Images.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeView1_DragDrop);
+            this.tv_Images.DragEnter += new System.Windows.Forms.DragEventHandler(this.treeView1_DragEnter);
+            this.tv_Images.DragOver += new System.Windows.Forms.DragEventHandler(this.treeView1_DragOver);
+            this.tv_Images.KeyDown += new System.Windows.Forms.KeyEventHandler(this.treeView1_KeyDown);
             // 
             // cmMenu
             // 
@@ -363,33 +336,33 @@
             this.tlNodeDelete,
             this.tsBatchRemove});
             this.cmMenu.Name = "cmMenu";
-            this.cmMenu.Size = new System.Drawing.Size(125, 92);
+            this.cmMenu.Size = new System.Drawing.Size(139, 100);
             // 
             // tsAlterName
             // 
             this.tsAlterName.Name = "tsAlterName";
-            this.tsAlterName.Size = new System.Drawing.Size(124, 22);
+            this.tsAlterName.Size = new System.Drawing.Size(138, 24);
             this.tsAlterName.Text = "修改";
             this.tsAlterName.Click += new System.EventHandler(this.tsAlterName_Click);
             // 
             // tsReplaceImage
             // 
             this.tsReplaceImage.Name = "tsReplaceImage";
-            this.tsReplaceImage.Size = new System.Drawing.Size(124, 22);
+            this.tsReplaceImage.Size = new System.Drawing.Size(138, 24);
             this.tsReplaceImage.Text = "替换图片";
             this.tsReplaceImage.Click += new System.EventHandler(this.tsReplaceImage_Click);
             // 
             // tlNodeDelete
             // 
             this.tlNodeDelete.Name = "tlNodeDelete";
-            this.tlNodeDelete.Size = new System.Drawing.Size(124, 22);
+            this.tlNodeDelete.Size = new System.Drawing.Size(138, 24);
             this.tlNodeDelete.Text = "删除";
             this.tlNodeDelete.Click += new System.EventHandler(this.tlNodeDelete_Click);
             // 
             // tsBatchRemove
             // 
             this.tsBatchRemove.Name = "tsBatchRemove";
-            this.tsBatchRemove.Size = new System.Drawing.Size(124, 22);
+            this.tsBatchRemove.Size = new System.Drawing.Size(138, 24);
             this.tsBatchRemove.Text = "批量删除";
             this.tsBatchRemove.Click += new System.EventHandler(this.tsBatchRemove_Click);
             // 
@@ -403,7 +376,7 @@
             this.panel2.ForeColor = System.Drawing.SystemColors.MenuHighlight;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(765, 473);
+            this.panel2.Size = new System.Drawing.Size(765, 474);
             this.panel2.TabIndex = 3;
             this.panel2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseDown);
             this.panel2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.panel2_MouseMove);
@@ -454,7 +427,7 @@
             this.lblNum.Font = new System.Drawing.Font("新宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNum.Location = new System.Drawing.Point(299, 36);
             this.lblNum.Name = "lblNum";
-            this.lblNum.Size = new System.Drawing.Size(28, 14);
+            this.lblNum.Size = new System.Drawing.Size(35, 18);
             this.lblNum.TabIndex = 4;
             this.lblNum.Text = "0/0";
             // 
@@ -464,7 +437,7 @@
             this.lblNbr.Font = new System.Drawing.Font("新宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lblNbr.Location = new System.Drawing.Point(3, 36);
             this.lblNbr.Name = "lblNbr";
-            this.lblNbr.Size = new System.Drawing.Size(35, 14);
+            this.lblNbr.Size = new System.Drawing.Size(44, 18);
             this.lblNbr.TabIndex = 3;
             this.lblNbr.Text = "单号";
             // 
@@ -474,7 +447,7 @@
             this.label1.Font = new System.Drawing.Font("新宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(3, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 14);
+            this.label1.Size = new System.Drawing.Size(107, 18);
             this.label1.TabIndex = 2;
             this.label1.Text = "正在上传...";
             // 
@@ -488,7 +461,6 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.bt_UploadInvoice);
             this.panel3.Controls.Add(this.bt_NewGroup);
             this.panel3.Controls.Add(this.bt_UploadReceipt);
             this.panel3.Controls.Add(this.bt_UploadNow);
@@ -497,17 +469,6 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(237, 114);
             this.panel3.TabIndex = 1;
-            // 
-            // bt_UploadInvoice
-            // 
-            this.bt_UploadInvoice.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.bt_UploadInvoice.Location = new System.Drawing.Point(114, 44);
-            this.bt_UploadInvoice.Name = "bt_UploadInvoice";
-            this.bt_UploadInvoice.Size = new System.Drawing.Size(84, 26);
-            this.bt_UploadInvoice.TabIndex = 12;
-            this.bt_UploadInvoice.Text = "发票上传(&V)";
-            this.bt_UploadInvoice.UseVisualStyleBackColor = true;
-            this.bt_UploadInvoice.Click += new System.EventHandler(this.bt_UploadInvoice_Click);
             // 
             // bt_NewGroup
             // 
@@ -592,7 +553,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 0);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(232, 473);
+            this.panel5.Size = new System.Drawing.Size(232, 474);
             this.panel5.TabIndex = 5;
             // 
             // txtLog
@@ -603,7 +564,7 @@
             this.txtLog.Location = new System.Drawing.Point(0, 0);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
-            this.txtLog.Size = new System.Drawing.Size(230, 471);
+            this.txtLog.Size = new System.Drawing.Size(230, 472);
             this.txtLog.TabIndex = 0;
             // 
             // splitContainer1
@@ -621,7 +582,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1242, 473);
+            this.splitContainer1.Size = new System.Drawing.Size(1242, 474);
             this.splitContainer1.SplitterDistance = 237;
             this.splitContainer1.TabIndex = 6;
             // 
@@ -640,7 +601,7 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.panel5);
-            this.splitContainer2.Size = new System.Drawing.Size(1001, 473);
+            this.splitContainer2.Size = new System.Drawing.Size(1001, 474);
             this.splitContainer2.SplitterDistance = 765;
             this.splitContainer2.TabIndex = 4;
             // 
@@ -649,7 +610,7 @@
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
             this.splitContainer3.IsSplitterFixed = true;
-            this.splitContainer3.Location = new System.Drawing.Point(0, 44);
+            this.splitContainer3.Location = new System.Drawing.Point(0, 43);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -660,8 +621,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer4);
-            this.splitContainer3.Size = new System.Drawing.Size(1242, 591);
-            this.splitContainer3.SplitterDistance = 473;
+            this.splitContainer3.Size = new System.Drawing.Size(1242, 592);
+            this.splitContainer3.SplitterDistance = 474;
             this.splitContainer3.TabIndex = 7;
             // 
             // splitContainer4
@@ -702,7 +663,7 @@
             // 
             // frmIndex
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1242, 635);
             this.Controls.Add(this.splitContainer3);
@@ -779,10 +740,10 @@
         private System.Windows.Forms.TextBox txtRemark;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.ToolStripButton toolStripLabel2;
-        private System.Windows.Forms.ToolStripButton toolStripLabel1;
+        private System.Windows.Forms.ToolStripButton tslConfig;
+        private System.Windows.Forms.ToolStripButton tslOpenImage;
         private System.Windows.Forms.ToolStripButton tslNormalScan;
-        private System.Windows.Forms.ToolStripButton toolStripLabel6;
+        private System.Windows.Forms.ToolStripButton tslReplaceScann;
         private System.Windows.Forms.ToolStripButton tslSuppleScann;
         private System.Windows.Forms.ToolStripButton tslSuppleUp;
         private System.Windows.Forms.ToolStripButton tslPrePage;
@@ -804,10 +765,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsReplaceImage;
         private System.Windows.Forms.ToolStripMenuItem tsBatchRemove;
         private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.Button bt_UploadInvoice;
-        private System.Windows.Forms.ToolStripButton tsVatInvoiceScan;
-        private System.Windows.Forms.ToolStripButton tsConfig;
-        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.TreeView tv_Images;
     }
 }
 

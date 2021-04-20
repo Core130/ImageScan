@@ -151,7 +151,7 @@
     <Compile Include="BLL\Common.cs" />
     <Compile Include="BLL\OpskyScan.cs" />
     <Compile Include="BLL\SQLiteHelper.cs" />
-    <Compile Include="BLL\Vat_InvoiceBll.cs" />
+    <Compile Include="BLL\VatInvoiceBll.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,7 +164,7 @@
     <Compile Include="frmVatInvoice.Designer.cs">
       <DependentUpon>frmVatInvoice.cs</DependentUpon>
     </Compile>
-    <Compile Include="Models\DropDownItem.cs" />
+    <Compile Include="DAL\DropDownItem.cs" />
     <Compile Include="frmAddGroup.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,8 +226,8 @@
       <DependentUpon>frmViewMessage.cs</DependentUpon>
     </Compile>
     <Compile Include="BLL\InIHelper.cs" />
-    <Compile Include="Models\Message.cs" />
-    <Compile Include="Models\Vat_Invoice.cs" />
+    <Compile Include="DAL\Message.cs" />
+    <Compile Include="DAL\VatInvoice.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BLL\TextLog.cs" />
@@ -319,15 +319,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\tihuan.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\query_search_40px_1135839_easyicon.net.ico" />
     <Content Include="Scanner.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
       <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>

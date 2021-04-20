@@ -59,25 +59,5 @@ namespace ImageScann.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap query_search_40px_1135839_easyicon_net {
-            get {
-                object obj = ResourceManager.GetObject("query_search_40px_1135839_easyicon.net", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
-        /// </summary>
-        internal static System.Drawing.Bitmap tihuan {
-            get {
-                object obj = ResourceManager.GetObject("tihuan", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
     }
 }
