@@ -93,9 +93,17 @@ namespace ImageScann.DAL
         /// </summary>
         public string Remarks { get; set; }
         /// <summary>
+        /// 发票路径
+        /// </summary>        
+        public string InvoicePatch { get; set; }
+        /// <summary>
         /// 创建时间
         /// </summary>
         public DateTime CreateTime { get; set; }
+        /// <summary>
+        /// 更新时间
+        /// </summary>
+        public DateTime UpdateTime { get; set; }
         /// <summary>
         /// 推送标识 1:已推送
         /// </summary>
@@ -103,7 +111,7 @@ namespace ImageScann.DAL
         /// <summary>
         /// 推送时间
         /// </summary>
-        public DateTime PushTime { get; set; }
+        public DateTime? PushTime { get; set; }
 
     }
 }

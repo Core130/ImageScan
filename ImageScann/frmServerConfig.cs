@@ -37,7 +37,7 @@ namespace ImageScann
             {
                 common.SetValue("invoiceUrl", invoiceUrl);
             }
-            common.SetValue("bOcr", chbOcr.Checked ? "ON" : "OFF");
+            
             string scanMode = this.cBox_ScanMode.Text.Trim();
             if (!string.IsNullOrEmpty(scanMode))
             {
@@ -51,8 +51,7 @@ namespace ImageScann
         {
             txt_imgUrl.Text = ConfigurationManager.AppSettings["url"];
             txt_invoiceUrl.Text = ConfigurationManager.AppSettings["invoiceUrl"];
-            cBox_ScanMode.Text = ConfigurationManager.AppSettings["scanMode"] == "image" ? "影像模式" : "识票模式";
-            chbOcr.Checked = ConfigurationManager.AppSettings["bOcr"] == "ON";
+            cBox_ScanMode.Text = ConfigurationManager.AppSettings["scanMode"] == "image" ? "影像模式" : "识票模式";            
         }
     }
 }

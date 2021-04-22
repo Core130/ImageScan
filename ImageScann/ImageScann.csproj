@@ -102,11 +102,17 @@
     <Reference Include="Aspose.BarCode">
       <HintPath>..\PJ_Dll\Aspose.BarCode.dll</HintPath>
     </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.1.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.3.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="iTextSharp, Version=4.1.6.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca">
+      <HintPath>..\packages\iTextSharp-LGPL.4.1.6\lib\iTextSharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build.Framework" />
     <Reference Include="Microsoft.CSharp" />
@@ -146,6 +152,7 @@
   <ItemGroup>
     <Compile Include="BLL\AsposeLicense.cs" />
     <Compile Include="BLL\ExportToExcel.cs" />
+    <Compile Include="BLL\ImageToPdf.cs" />
     <Compile Include="BLL\OpskyBillOcrEngine.cs" />
     <Compile Include="BLL\ColorConfig.cs" />
     <Compile Include="BLL\Common.cs" />
@@ -157,6 +164,12 @@
     </Compile>
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmQueryImage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmQueryImage.Designer.cs">
+      <DependentUpon>frmQueryImage.cs</DependentUpon>
     </Compile>
     <Compile Include="frmVatInvoice.cs">
       <SubType>Form</SubType>
@@ -258,6 +271,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMergeName.resx">
       <DependentUpon>frmMergeName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmQueryImage.resx">
+      <DependentUpon>frmQueryImage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmServerConfig.resx">
       <DependentUpon>frmServerConfig.cs</DependentUpon>

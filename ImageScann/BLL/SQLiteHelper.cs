@@ -83,8 +83,6 @@ namespace ImageScann.BLL
         {
             SQLiteConnection cn = new SQLiteConnection(connectionString);
             SQLiteCommand cmd = cn.CreateCommand();
-
-
             cmd.CommandText = commandText;
             if (paramList != null)
             {

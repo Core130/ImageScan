@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ImageScann.DAL;
+using Newtonsoft.Json;
 
 namespace ImageScann.BLL
 {
@@ -132,6 +133,7 @@ namespace ImageScann.BLL
                         if (recode == 0)      //识别后读取数据
                         {
                             invResult = GetRecogResult(ncells);
+                            _logger.Info("发票识别结果:" + JsonConvert.SerializeObject(invResult));
                             if (invResult != null)
                             {
                                 VatInvoice invoice = new VatInvoice();
@@ -157,8 +159,9 @@ namespace ImageScann.BLL
                                 invoice.NoteDrawer = invResult["开票人"].ToString();
                                 invoice.Remarks = invResult["备注"].ToString();
                                 invoice.CreateTime = DateTime.Now;
+                                invoice.UpdateTime = DateTime.Now;
                                 invoice.PushStatus = 0;
-                                invoiceBll.AddVatInvoice(invoice);
+
                                 //按发票代码、发票号码重命名文件,并按开票日期年月建立归档文件夹
                                 string imageDoc = invoice.InvoiceDate.Substring(0, 7);
                                 imagePath = AppDomain.CurrentDomain.BaseDirectory + @"vatinvoiceimages\" + imageDoc + @"\";
@@ -168,6 +171,8 @@ namespace ImageScann.BLL
                                 FileInfo fileInfo = new FileInfo(tpImgName);
                                 if (!File.Exists(newImagePath))
                                     fileInfo.MoveTo(Path.Combine(newImagePath));
+                                invoice.InvoicePatch = imageDoc + @"\" + imageName + ".jpg";
+                                invoiceBll.AddVatInvoice(invoice);
                             }
                         }
                     }
