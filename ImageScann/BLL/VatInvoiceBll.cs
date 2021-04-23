@@ -24,8 +24,10 @@ namespace ImageScann.BLL
         /// <param name="dateFr">开票日期开始</param>
         /// <param name="dateTo">开票日期截止</param>
         /// <param name="lastScanTime">最近上传时间</param>
+        /// <param name="pageSize">页大小,0:不分页</param>
+        /// <param name="pageIndex">第几页</param>
         /// <returns></returns>
-        public DataSet GetVatInvoice(string invCode, string invNum, string sellerName, string dateFr, string dateTo, string lastScanTime)
+        public DataSet GetVatInvoice(string invCode, string invNum, string sellerName, string dateFr, string dateTo, string lastScanTime, int pageSize = 0, int pageIndex = 0)
         {
             string commandText = @"SELECT  Id, InvoiceTypeOrg, InvoiceCode, InvoiceNumber, InvoiceDate, PurchaserName,
                             PurchaserRegisterNum, PurchaserAddress, PurchaserBank, SellerName, SellerRegisterNum, SellerAddress, SellerBank, 
@@ -36,6 +38,10 @@ namespace ImageScann.BLL
             if (!string.IsNullOrWhiteSpace(dateFr)) commandText += string.Format(" AND InvoiceDate >= '{0}'", dateFr);
             if (!string.IsNullOrWhiteSpace(dateTo)) commandText += string.Format(" AND InvoiceDate <= '{0}'", dateTo);
             if (!string.IsNullOrWhiteSpace(lastScanTime)) commandText += string.Format(" AND ( CreateTime >= '{0}' OR UpdateTime >= '{0}')", lastScanTime);
+            if (pageSize != 0)
+            {
+                commandText += string.Format(" limit {0} offset {1}", pageSize, pageSize * (pageIndex - 1));
+            }
             DataSet ds = SQLiteHelper.ExecuteDataSet(connectionString, commandText, null);
             return ds;
         }
@@ -143,30 +149,6 @@ namespace ImageScann.BLL
             {
                 return null;
             }
-        }
-        /// <summary>
-        /// DataSet分页查询
-        /// </summary>
-        /// <param name="ds"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="pageIndex"></param>
-        /// <returns></returns>
-        public DataSet SplitDataSet(DataSet ds, int pageSize, int pageIndex)
-        {
-            DataSet vds = new DataSet();
-            vds = ds.Clone();
-            if (pageIndex < 1) pageIndex = 1;//如果小于1，取第一页
-            //if ((ds.Tables[0].Rows.Count + pageSize) <= (pageSize * pageIndex)) pageIndex = 1;
-            int fromIndex = pageSize * (pageIndex - 1);//开始行
-            int toIndex = pageSize * pageIndex - 1; //结束行
-            for (int i = fromIndex; i <= toIndex; i++)
-            {
-                if (i >= (ds.Tables[0].Rows.Count)) //到达这一行，退出
-                    break;
-                vds.Tables[0].ImportRow(ds.Tables[0].Rows[i]);
-            }
-            ds.Dispose();
-            return vds;
-        }
+        }        
     }
 }

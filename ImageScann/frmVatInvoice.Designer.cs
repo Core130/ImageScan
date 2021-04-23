@@ -99,69 +99,69 @@ namespace ImageScann
             this.tstripButton_pdf});
             this.toolStrip_Invoice.Location = new System.Drawing.Point(0, 0);
             this.toolStrip_Invoice.Name = "toolStrip_Invoice";
-            this.toolStrip_Invoice.Size = new System.Drawing.Size(979, 44);
+            this.toolStrip_Invoice.Size = new System.Drawing.Size(1305, 47);
             this.toolStrip_Invoice.TabIndex = 0;
             this.toolStrip_Invoice.Text = "toolStrip1";
             // 
             // toolStripLabel1
             // 
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(56, 41);
+            this.toolStripLabel1.Size = new System.Drawing.Size(69, 44);
             this.toolStripLabel1.Text = "发票代码";
             // 
             // tsTextBox_InvCode
             // 
             this.tsTextBox_InvCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tsTextBox_InvCode.Name = "tsTextBox_InvCode";
-            this.tsTextBox_InvCode.Size = new System.Drawing.Size(100, 44);
+            this.tsTextBox_InvCode.Size = new System.Drawing.Size(133, 47);
             // 
             // toolStripLabel2
             // 
             this.toolStripLabel2.Name = "toolStripLabel2";
-            this.toolStripLabel2.Size = new System.Drawing.Size(56, 41);
+            this.toolStripLabel2.Size = new System.Drawing.Size(69, 44);
             this.toolStripLabel2.Text = "发票号码";
             // 
             // tsTextBox_InvNum
             // 
             this.tsTextBox_InvNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tsTextBox_InvNum.Name = "tsTextBox_InvNum";
-            this.tsTextBox_InvNum.Size = new System.Drawing.Size(100, 44);
+            this.tsTextBox_InvNum.Size = new System.Drawing.Size(133, 47);
             // 
             // toolStripLabel3
             // 
             this.toolStripLabel3.Name = "toolStripLabel3";
-            this.toolStripLabel3.Size = new System.Drawing.Size(68, 41);
+            this.toolStripLabel3.Size = new System.Drawing.Size(84, 44);
             this.toolStripLabel3.Text = "销售方名称";
             // 
             // tstripTextBox_SellerName
             // 
             this.tstripTextBox_SellerName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tstripTextBox_SellerName.Name = "tstripTextBox_SellerName";
-            this.tstripTextBox_SellerName.Size = new System.Drawing.Size(174, 44);
+            this.tstripTextBox_SellerName.Size = new System.Drawing.Size(231, 47);
             // 
             // toolStripLabel4
             // 
             this.toolStripLabel4.Name = "toolStripLabel4";
-            this.toolStripLabel4.Size = new System.Drawing.Size(56, 41);
+            this.toolStripLabel4.Size = new System.Drawing.Size(69, 44);
             this.toolStripLabel4.Text = "开票日期";
             // 
             // toolStripLabel5
             // 
             this.toolStripLabel5.Name = "toolStripLabel5";
-            this.toolStripLabel5.Size = new System.Drawing.Size(20, 41);
+            this.toolStripLabel5.Size = new System.Drawing.Size(24, 44);
             this.toolStripLabel5.Text = "至";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 44);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 47);
             // 
             // tstripButton_query
             // 
             this.tstripButton_query.Image = ((System.Drawing.Image)(resources.GetObject("tstripButton_query.Image")));
             this.tstripButton_query.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tstripButton_query.Name = "tstripButton_query";
-            this.tstripButton_query.Size = new System.Drawing.Size(36, 41);
+            this.tstripButton_query.Size = new System.Drawing.Size(43, 44);
             this.tstripButton_query.Text = "查询";
             this.tstripButton_query.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tstripButton_query.Click += new System.EventHandler(this.tstripButton_query_Click);
@@ -171,7 +171,7 @@ namespace ImageScann
             this.tstripButton_excel.Image = ((System.Drawing.Image)(resources.GetObject("tstripButton_excel.Image")));
             this.tstripButton_excel.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tstripButton_excel.Name = "tstripButton_excel";
-            this.tstripButton_excel.Size = new System.Drawing.Size(36, 41);
+            this.tstripButton_excel.Size = new System.Drawing.Size(43, 44);
             this.tstripButton_excel.Text = "输出";
             this.tstripButton_excel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tstripButton_excel.Click += new System.EventHandler(this.tstripButton_excel_Click);
@@ -179,14 +179,14 @@ namespace ImageScann
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 44);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 47);
             // 
             // tsVatInvoiceScan
             // 
             this.tsVatInvoiceScan.Image = ((System.Drawing.Image)(resources.GetObject("tsVatInvoiceScan.Image")));
             this.tsVatInvoiceScan.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsVatInvoiceScan.Name = "tsVatInvoiceScan";
-            this.tsVatInvoiceScan.Size = new System.Drawing.Size(36, 41);
+            this.tsVatInvoiceScan.Size = new System.Drawing.Size(43, 44);
             this.tsVatInvoiceScan.Text = "扫描";
             this.tsVatInvoiceScan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsVatInvoiceScan.ToolTipText = "扫描";
@@ -197,7 +197,7 @@ namespace ImageScann
             this.tstripButton_querylasttime.Image = ((System.Drawing.Image)(resources.GetObject("tstripButton_querylasttime.Image")));
             this.tstripButton_querylasttime.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tstripButton_querylasttime.Name = "tstripButton_querylasttime";
-            this.tstripButton_querylasttime.Size = new System.Drawing.Size(60, 41);
+            this.tstripButton_querylasttime.Size = new System.Drawing.Size(73, 44);
             this.tstripButton_querylasttime.Text = "最近扫描";
             this.tstripButton_querylasttime.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tstripButton_querylasttime.Click += new System.EventHandler(this.tstripButton_querylasttime_Click);
@@ -205,14 +205,14 @@ namespace ImageScann
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 44);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 47);
             // 
             // tstripButton_save
             // 
             this.tstripButton_save.Image = ((System.Drawing.Image)(resources.GetObject("tstripButton_save.Image")));
             this.tstripButton_save.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tstripButton_save.Name = "tstripButton_save";
-            this.tstripButton_save.Size = new System.Drawing.Size(60, 41);
+            this.tstripButton_save.Size = new System.Drawing.Size(73, 44);
             this.tstripButton_save.Text = "保存更改";
             this.tstripButton_save.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tstripButton_save.Click += new System.EventHandler(this.tstripButton_save_Click);
@@ -220,20 +220,22 @@ namespace ImageScann
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 44);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 47);
             // 
             // tstripButton_pdf
             // 
             this.tstripButton_pdf.Image = ((System.Drawing.Image)(resources.GetObject("tstripButton_pdf.Image")));
             this.tstripButton_pdf.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tstripButton_pdf.Name = "tstripButton_pdf";
-            this.tstripButton_pdf.Size = new System.Drawing.Size(60, 41);
+            this.tstripButton_pdf.Size = new System.Drawing.Size(73, 44);
             this.tstripButton_pdf.Text = "导出发票";
             this.tstripButton_pdf.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tstripButton_pdf.Click += new System.EventHandler(this.tstripButton_pdf_Click);
             // 
             // DataGridView_Invoice
             // 
+            this.DataGridView_Invoice.AllowUserToAddRows = false;
+            this.DataGridView_Invoice.AllowUserToDeleteRows = false;
             this.DataGridView_Invoice.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridView_Invoice.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Id,
@@ -255,11 +257,12 @@ namespace ImageScann
             this.TotalTax,
             this.PushStatus});
             this.DataGridView_Invoice.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.DataGridView_Invoice.Location = new System.Drawing.Point(0, 44);
+            this.DataGridView_Invoice.Location = new System.Drawing.Point(0, 47);
+            this.DataGridView_Invoice.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.DataGridView_Invoice.Name = "DataGridView_Invoice";
             this.DataGridView_Invoice.RowHeadersWidth = 51;
             this.DataGridView_Invoice.RowTemplate.Height = 23;
-            this.DataGridView_Invoice.Size = new System.Drawing.Size(979, 379);
+            this.DataGridView_Invoice.Size = new System.Drawing.Size(1305, 481);
             this.DataGridView_Invoice.TabIndex = 1;
             this.DataGridView_Invoice.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_Invoice_CellDoubleClick);
             // 
@@ -272,7 +275,7 @@ namespace ImageScann
             this.Id.Name = "Id";
             this.Id.ReadOnly = true;
             this.Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Id.Width = 32;
+            this.Id.Width = 39;
             // 
             // InvoiceTypeOrg
             // 
@@ -282,7 +285,7 @@ namespace ImageScann
             this.InvoiceTypeOrg.MinimumWidth = 6;
             this.InvoiceTypeOrg.Name = "InvoiceTypeOrg";
             this.InvoiceTypeOrg.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.InvoiceTypeOrg.Width = 42;
+            this.InvoiceTypeOrg.Width = 52;
             // 
             // InvImage
             // 
@@ -302,7 +305,7 @@ namespace ImageScann
             this.InvoiceCode.MinimumWidth = 6;
             this.InvoiceCode.Name = "InvoiceCode";
             this.InvoiceCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.InvoiceCode.Width = 42;
+            this.InvoiceCode.Width = 52;
             // 
             // InvoiceNumber
             // 
@@ -312,7 +315,7 @@ namespace ImageScann
             this.InvoiceNumber.MinimumWidth = 6;
             this.InvoiceNumber.Name = "InvoiceNumber";
             this.InvoiceNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.InvoiceNumber.Width = 42;
+            this.InvoiceNumber.Width = 52;
             // 
             // InvoiceDate
             // 
@@ -322,7 +325,7 @@ namespace ImageScann
             this.InvoiceDate.MinimumWidth = 6;
             this.InvoiceDate.Name = "InvoiceDate";
             this.InvoiceDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.InvoiceDate.Width = 42;
+            this.InvoiceDate.Width = 52;
             // 
             // PurchaserName
             // 
@@ -332,7 +335,7 @@ namespace ImageScann
             this.PurchaserName.MinimumWidth = 6;
             this.PurchaserName.Name = "PurchaserName";
             this.PurchaserName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.PurchaserName.Width = 53;
+            this.PurchaserName.Width = 66;
             // 
             // PurchaserRegisterNum
             // 
@@ -342,7 +345,7 @@ namespace ImageScann
             this.PurchaserRegisterNum.MinimumWidth = 6;
             this.PurchaserRegisterNum.Name = "PurchaserRegisterNum";
             this.PurchaserRegisterNum.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.PurchaserRegisterNum.Width = 75;
+            this.PurchaserRegisterNum.Width = 93;
             // 
             // PurchaserAddress
             // 
@@ -352,7 +355,7 @@ namespace ImageScann
             this.PurchaserAddress.MinimumWidth = 6;
             this.PurchaserAddress.Name = "PurchaserAddress";
             this.PurchaserAddress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.PurchaserAddress.Width = 75;
+            this.PurchaserAddress.Width = 93;
             // 
             // PurchaserBank
             // 
@@ -362,7 +365,7 @@ namespace ImageScann
             this.PurchaserBank.MinimumWidth = 6;
             this.PurchaserBank.Name = "PurchaserBank";
             this.PurchaserBank.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.PurchaserBank.Width = 75;
+            this.PurchaserBank.Width = 93;
             // 
             // SellerName
             // 
@@ -372,7 +375,7 @@ namespace ImageScann
             this.SellerName.MinimumWidth = 6;
             this.SellerName.Name = "SellerName";
             this.SellerName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SellerName.Width = 53;
+            this.SellerName.Width = 66;
             // 
             // SellerRegisterNum
             // 
@@ -382,7 +385,7 @@ namespace ImageScann
             this.SellerRegisterNum.MinimumWidth = 6;
             this.SellerRegisterNum.Name = "SellerRegisterNum";
             this.SellerRegisterNum.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SellerRegisterNum.Width = 75;
+            this.SellerRegisterNum.Width = 93;
             // 
             // SellerAddress
             // 
@@ -392,7 +395,7 @@ namespace ImageScann
             this.SellerAddress.MinimumWidth = 6;
             this.SellerAddress.Name = "SellerAddress";
             this.SellerAddress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SellerAddress.Width = 75;
+            this.SellerAddress.Width = 93;
             // 
             // SellerBank
             // 
@@ -402,7 +405,7 @@ namespace ImageScann
             this.SellerBank.MinimumWidth = 6;
             this.SellerBank.Name = "SellerBank";
             this.SellerBank.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SellerBank.Width = 75;
+            this.SellerBank.Width = 93;
             // 
             // TotalAmount
             // 
@@ -412,7 +415,7 @@ namespace ImageScann
             this.TotalAmount.MinimumWidth = 6;
             this.TotalAmount.Name = "TotalAmount";
             this.TotalAmount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TotalAmount.Width = 42;
+            this.TotalAmount.Width = 52;
             // 
             // TotalTaxAmount
             // 
@@ -422,7 +425,7 @@ namespace ImageScann
             this.TotalTaxAmount.MinimumWidth = 6;
             this.TotalTaxAmount.Name = "TotalTaxAmount";
             this.TotalTaxAmount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TotalTaxAmount.Width = 42;
+            this.TotalTaxAmount.Width = 52;
             // 
             // TotalTax
             // 
@@ -432,7 +435,7 @@ namespace ImageScann
             this.TotalTax.MinimumWidth = 6;
             this.TotalTax.Name = "TotalTax";
             this.TotalTax.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TotalTax.Width = 42;
+            this.TotalTax.Width = 52;
             // 
             // PushStatus
             // 
@@ -442,33 +445,36 @@ namespace ImageScann
             this.PushStatus.MinimumWidth = 6;
             this.PushStatus.Name = "PushStatus";
             this.PushStatus.ReadOnly = true;
-            this.PushStatus.Width = 42;
+            this.PushStatus.Width = 52;
             // 
             // panelMycontrol
             // 
             this.panelMycontrol.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelMycontrol.Location = new System.Drawing.Point(0, 423);
+            this.panelMycontrol.Location = new System.Drawing.Point(0, 528);
+            this.panelMycontrol.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelMycontrol.Name = "panelMycontrol";
-            this.panelMycontrol.Size = new System.Drawing.Size(979, 35);
+            this.panelMycontrol.Size = new System.Drawing.Size(1305, 44);
             this.panelMycontrol.TabIndex = 2;
             // 
             // panelData
             // 
             this.panelData.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelData.Location = new System.Drawing.Point(0, 0);
+            this.panelData.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panelData.Name = "panelData";
-            this.panelData.Size = new System.Drawing.Size(979, 458);
+            this.panelData.Size = new System.Drawing.Size(1305, 572);
             this.panelData.TabIndex = 3;
             // 
             // frmVatInvoice
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(979, 458);
+            this.ClientSize = new System.Drawing.Size(1305, 572);
             this.Controls.Add(this.DataGridView_Invoice);
             this.Controls.Add(this.panelMycontrol);
             this.Controls.Add(this.toolStrip_Invoice);
             this.Controls.Add(this.panelData);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "frmVatInvoice";
             this.Text = "我的发票列表";
             this.Load += new System.EventHandler(this.frmVatInvoice_Load);
