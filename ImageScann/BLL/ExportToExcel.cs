@@ -14,11 +14,11 @@ namespace ImageScann.BLL
     {
         public Excel.Application m_xlApp = null;
 
-        public void OutputAsExcelFile(DataGridView dataGridView)
+        public void OutputAsExcelFile(DataSet ds)
         {
-            if (dataGridView.Rows.Count <= 0)
+            if (ds.Tables[0].Rows.Count <= 0)
             {
-                MessageBox.Show("无数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning); return;
+                MessageBox.Show("没有任何数据可以导入到Excel文件！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning); return;
             }
             string filePath = "";
             SaveFileDialog s = new SaveFileDialog();
@@ -30,29 +30,10 @@ namespace ImageScann.BLL
             else
                 return;
 
-            //第一步：将dataGridView转化为dataTable,这样可以过滤掉dataGridView中的隐藏列  
+            //第一步：将dataSet转化为dataTable
 
             DataTable tmpDataTable = new DataTable("tmpDataTable");
-            DataTable modelTable = new DataTable("ModelTable");
-            for (int column = 0; column < dataGridView.Columns.Count; column++)
-            {
-                if (dataGridView.Columns[column].Visible == true)
-                {
-                    DataColumn tempColumn = new DataColumn(dataGridView.Columns[column].HeaderText, typeof(string));
-                    tmpDataTable.Columns.Add(tempColumn);
-                    DataColumn modelColumn = new DataColumn(dataGridView.Columns[column].Name, typeof(string));
-                    modelTable.Columns.Add(modelColumn);
-                }
-            }
-            for (int row = 0; row < dataGridView.Rows.Count; row++)
-            {
-                if (dataGridView.Rows[row].Visible == false)
-                    continue;
-                DataRow tempRow = tmpDataTable.NewRow();
-                for (int i = 0; i < tmpDataTable.Columns.Count; i++)
-                    tempRow[i] = dataGridView.Rows[row].Cells[modelTable.Columns[i].ColumnName].Value;
-                tmpDataTable.Rows.Add(tempRow);
-            }
+            tmpDataTable = ds.Tables[0];
             if (tmpDataTable == null)
             {
                 return;

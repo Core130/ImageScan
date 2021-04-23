@@ -20,6 +20,8 @@ namespace ImageScann
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            WindowState = FormWindowState.Maximized;
+            panel_index.Dock = DockStyle.Fill;
             string scanMode = ConfigurationManager.AppSettings["scanMode"];
             if (scanMode == "image")
             {
@@ -27,7 +29,7 @@ namespace ImageScann
                 frmIndex.TopLevel = false;
                 frmIndex.FormBorderStyle = FormBorderStyle.None;
                 frmIndex.Dock = DockStyle.Fill;
-                frmIndex.Parent = this.panel_index;
+                frmIndex.Parent = panel_index;
                 frmIndex.Show();
             }
             else
@@ -36,7 +38,7 @@ namespace ImageScann
                 frmVatInvoice.TopLevel = false;
                 frmVatInvoice.FormBorderStyle = FormBorderStyle.None;
                 frmVatInvoice.Dock = DockStyle.Fill;
-                frmVatInvoice.Parent = this.panel_index;
+                frmVatInvoice.Parent = panel_index;
                 frmVatInvoice.Show();
             }
 

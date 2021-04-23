@@ -241,6 +241,12 @@
     <Compile Include="BLL\InIHelper.cs" />
     <Compile Include="DAL\Message.cs" />
     <Compile Include="DAL\VatInvoice.cs" />
+    <Compile Include="PageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PageControl.Designer.cs">
+      <DependentUpon>PageControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BLL\TextLog.cs" />
@@ -283,6 +289,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmViewMessage.resx">
       <DependentUpon>frmViewMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PageControl.resx">
+      <DependentUpon>PageControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

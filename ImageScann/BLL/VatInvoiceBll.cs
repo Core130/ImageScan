@@ -144,5 +144,29 @@ namespace ImageScann.BLL
                 return null;
             }
         }
+        /// <summary>
+        /// DataSet分页查询
+        /// </summary>
+        /// <param name="ds"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns></returns>
+        public DataSet SplitDataSet(DataSet ds, int pageSize, int pageIndex)
+        {
+            DataSet vds = new DataSet();
+            vds = ds.Clone();
+            if (pageIndex < 1) pageIndex = 1;//如果小于1，取第一页
+            //if ((ds.Tables[0].Rows.Count + pageSize) <= (pageSize * pageIndex)) pageIndex = 1;
+            int fromIndex = pageSize * (pageIndex - 1);//开始行
+            int toIndex = pageSize * pageIndex - 1; //结束行
+            for (int i = fromIndex; i <= toIndex; i++)
+            {
+                if (i >= (ds.Tables[0].Rows.Count)) //到达这一行，退出
+                    break;
+                vds.Tables[0].ImportRow(ds.Tables[0].Rows[i]);
+            }
+            ds.Dispose();
+            return vds;
+        }
     }
 }
