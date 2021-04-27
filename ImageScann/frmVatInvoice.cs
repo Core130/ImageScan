@@ -22,8 +22,7 @@ namespace ImageScann
         bool bInitFlag = false;
         string msg = "";
         OpskyScan opskyScan = new OpskyScan();
-        VatInvoiceBll vatInvoiceBll = new VatInvoiceBll();
-        PageControl pageControl = new PageControl();        
+        VatInvoiceBll vatInvoiceBll = new VatInvoiceBll();        
         string invCode = "";
         string invNum = "";
         string sellerName = "";
@@ -89,12 +88,13 @@ namespace ImageScann
             {
                 MessageBox.Show(msg, "提示");
                 tsVatInvoiceScan.Enabled = false;
-            } 
+            }
             //绑定自定义控件
+            PageControl pageControl = new PageControl();
             //pageControl.PageSize = (panelData.Height - 50) / 23;
             pageControl.Parent = panelMycontrol;
             pageControl.Dock = DockStyle.Left;
-            pageControl.Kind = 1;
+            pageControl.Kind = 0;
             pageControl.PageIndex = 0;           
             pageControl.BindPageEvent += BindPage;
             pageControl.SetPage();
@@ -108,6 +108,9 @@ namespace ImageScann
         {
             try
             {
+                PageControl pageControl = new PageControl();                
+                pageControl.Parent = panelMycontrol;
+                pageControl.Dock = DockStyle.Left;
                 pageControl.Kind = 1;
                 pageControl.PageIndex = 0;
                 pageControl.BindPageEvent += BindPage;
@@ -210,6 +213,10 @@ namespace ImageScann
         {
             try
             {
+                PageControl pageControl = new PageControl();
+                //pageControl.PageSize = (panelData.Height - 50) / 23;
+                pageControl.Parent = panelMycontrol;
+                pageControl.Dock = DockStyle.Left;
                 pageControl.Kind = 2;
                 pageControl.PageIndex = 0;
                 pageControl.BindPageEvent += BindPage;
@@ -332,18 +339,27 @@ namespace ImageScann
                 ds = vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, invDateFr, invDateTo, null, pageSize, pageIndex);
                 totalCount = GetAllData().Tables[0].Rows.Count;
             }
-            else
+            else if (kind == 2)
             {
                 string lastScanTime = ConfigurationManager.AppSettings["lastScanTime"];
                 ds = vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, invDateFr, invDateTo, lastScanTime, pageSize, pageIndex);
                 totalCount = vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, invDateFr, invDateTo, lastScanTime, 0, 0).Tables[0].Rows.Count;
-            }            
-            DataGridView_Invoice.DataSource = ds.Tables[0];
-            Image invIco = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + @"icon\invoice.jpg");
-            for (int i = 0; i < DataGridView_Invoice.Rows.Count; i++)            
+            }   
+            else
             {
-                DataGridView_Invoice.Rows[i].Cells["InvImage"].Value = invIco;
+                totalCount = 0;
+                ds = null;
             }
+
+            if(ds != null)
+            {
+                DataGridView_Invoice.DataSource = ds.Tables[0];
+                Image invIco = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + @"icon\invoice.jpg");
+                for (int i = 0; i < DataGridView_Invoice.Rows.Count; i++)
+                {
+                    DataGridView_Invoice.Rows[i].Cells["InvImage"].Value = invIco;
+                }
+            }     
         }
     }
 }
