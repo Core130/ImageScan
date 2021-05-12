@@ -14,26 +14,47 @@ namespace ImageScann.BLL
     {
         public Excel.Application m_xlApp = null;
 
-        public void OutputAsExcelFile(DataSet ds)
+        public void OutputAsExcelFile(DataSet ds, DataGridView dataGridView)
         {
             if (ds.Tables[0].Rows.Count <= 0)
             {
-                MessageBox.Show("没有任何数据可以导入到Excel文件！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning); return;
+                MessageBox.Show("无数据！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning); return;
             }
             string filePath = "";
             SaveFileDialog s = new SaveFileDialog();
             s.Title = "保存Excel文件";
-            s.Filter = "Excel文件(*.xls)|*.xls";
+            s.Filter = "Excel文件(*.xlsx)|*.xlsx";
             s.FilterIndex = 1;
             if (s.ShowDialog() == DialogResult.OK)
                 filePath = s.FileName;
             else
                 return;
 
-            //第一步：将dataSet转化为dataTable
+            //第一步：将dataGridView转化为dataTable,这样可以过滤掉dataGridView中的隐藏列  
 
             DataTable tmpDataTable = new DataTable("tmpDataTable");
-            tmpDataTable = ds.Tables[0];
+            DataTable modelTable = new DataTable("ModelTable");
+            for (int column = 0; column < dataGridView.Columns.Count; column++)
+            {
+                if (dataGridView.Columns[column].Visible == true)
+                {
+                    DataColumn tempColumn = new DataColumn(dataGridView.Columns[column].HeaderText, typeof(string));
+                    tmpDataTable.Columns.Add(tempColumn);
+                    DataColumn modelColumn = new DataColumn(dataGridView.Columns[column].Name, typeof(string));
+                    modelTable.Columns.Add(modelColumn);
+                }
+            }
+            for (int row = 0; row < ds.Tables[0].Rows.Count; row++)
+            {               
+                DataRow tempRow = tmpDataTable.NewRow();
+                for (int i = 0; i < tmpDataTable.Columns.Count; i++)
+                {
+                    if (ds.Tables[0].Columns.Contains(modelTable.Columns[i].ColumnName))
+                        tempRow[i] = ds.Tables[0].Rows[row][modelTable.Columns[i].ColumnName].ToString();
+                }
+
+                tmpDataTable.Rows.Add(tempRow);
+            }
             if (tmpDataTable == null)
             {
                 return;

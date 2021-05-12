@@ -21,13 +21,14 @@ namespace ImageScann.BLL
         /// <param name="invCode">发票代码</param>
         /// <param name="invNum">发票号码</param>
         /// <param name="sellerName">销售方名称</param>
+        /// <param name="purchaserName">购买方名称</param>
         /// <param name="dateFr">开票日期开始</param>
         /// <param name="dateTo">开票日期截止</param>
         /// <param name="lastScanTime">最近上传时间</param>
         /// <param name="pageSize">页大小,0:不分页</param>
         /// <param name="pageIndex">第几页</param>
         /// <returns></returns>
-        public DataSet GetVatInvoice(string invCode, string invNum, string sellerName, string dateFr, string dateTo, string lastScanTime, int pageSize = 0, int pageIndex = 0)
+        public DataSet GetVatInvoice(string invCode, string invNum, string sellerName,string purchaserName, string dateFr, string dateTo, string lastScanTime, int pageSize = 0, int pageIndex = 0)
         {
             string commandText = @"SELECT  Id, InvoiceTypeOrg, InvoiceCode, InvoiceNumber, InvoiceDate, PurchaserName,
                             PurchaserRegisterNum, PurchaserAddress, PurchaserBank, SellerName, SellerRegisterNum, SellerAddress, SellerBank, 
@@ -35,6 +36,7 @@ namespace ImageScann.BLL
             if (!string.IsNullOrWhiteSpace(invCode)) commandText += string.Format(" AND InvoiceCode = '{0}'", invCode);
             if (!string.IsNullOrWhiteSpace(invNum)) commandText += string.Format(" AND InvoiceNumber = '{0}'", invNum);
             if (!string.IsNullOrWhiteSpace(sellerName)) commandText += string.Format(" AND SellerName LIKE '%{0}%'", sellerName);
+            if (!string.IsNullOrWhiteSpace(purchaserName)) commandText += string.Format(" AND PurchaserName LIKE '%{0}%'", purchaserName);
             if (!string.IsNullOrWhiteSpace(dateFr)) commandText += string.Format(" AND InvoiceDate >= '{0}'", dateFr);
             if (!string.IsNullOrWhiteSpace(dateTo)) commandText += string.Format(" AND InvoiceDate <= '{0}'", dateTo);
             if (!string.IsNullOrWhiteSpace(lastScanTime)) commandText += string.Format(" AND ( CreateTime >= '{0}' OR UpdateTime >= '{0}')", lastScanTime);
@@ -51,7 +53,7 @@ namespace ImageScann.BLL
         /// <param name="invoice"></param>
         public void AddVatInvoice(VatInvoice invoice)
         {
-            DataSet ds = GetVatInvoice(invoice.InvoiceCode, invoice.InvoiceNumber, "", "", "", "");
+            DataSet ds = GetVatInvoice(invoice.InvoiceCode, invoice.InvoiceNumber,"", "", "", "", "");
             if (ds.Tables[0].Rows.Count == 0)
             {
                 string commandStr = @"INSERT INTO Vat_Invoice(InvoiceType,InvoiceTypeOrg, InvoiceCode, InvoiceNumber, 
@@ -74,7 +76,7 @@ namespace ImageScann.BLL
             else
             {
                 string commandStr = @"UPDATE Vat_Invoice SET UpdateTime = @UpdateTime 
-                                WHERE  InvoiceCode = @InvoiceCode, InvoiceNumber = @InvoiceNumber";
+                                WHERE  InvoiceCode = @InvoiceCode AND InvoiceNumber = @InvoiceNumber";
                 var parameters = new object[] { invoice.UpdateTime, invoice.InvoiceCode, invoice.InvoiceNumber };
                 SQLiteHelper.ExecuteNonQuery(connectionString, commandStr, parameters);
             }

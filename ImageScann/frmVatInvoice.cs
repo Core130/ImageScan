@@ -22,10 +22,11 @@ namespace ImageScann
         bool bInitFlag = false;
         string msg = "";
         OpskyScan opskyScan = new OpskyScan();
-        VatInvoiceBll vatInvoiceBll = new VatInvoiceBll();        
+        VatInvoiceBll vatInvoiceBll = new VatInvoiceBll();
         string invCode = "";
         string invNum = "";
         string sellerName = "";
+        string purchaserName = "";
         string invDateFr = "";
         string invDateTo = "";
         public frmVatInvoice()
@@ -36,20 +37,13 @@ namespace ImageScann
         private void frmVatInvoice_Load(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Maximized;
-            //绑定开票日期控件
-            DateTimePicker dtpFr = new DateTimePicker();
-            dtpFr.Width = 110;
-            dtpFr.Format = DateTimePickerFormat.Custom;
-            dtpFr.Value = DateTime.Now.AddDays(1 - DateTime.Now.Day); //月初
-            ToolStripControlHost host1 = new ToolStripControlHost(dtpFr);
-            toolStrip_Invoice.Items.Insert(7, host1);
+            dateTimePickerDareFm.Format = DateTimePickerFormat.Custom;
+            dateTimePickerDareFm.CustomFormat = "yyyy-MM-dd";
+            dateTimePickerDareFm.Value = DateTime.Now.AddDays(1 - DateTime.Now.Day); //月初  
+            dateTimePickerDateTo.Format = DateTimePickerFormat.Custom;
+            dateTimePickerDateTo.CustomFormat = "yyyy-MM-dd";
+            dateTimePickerDateTo.Value = DateTime.Now.AddMonths(1).AddDays(-DateTime.Now.Day); //月末
 
-            DateTimePicker dtpTo = new DateTimePicker();
-            dtpTo.Width = 110;
-            dtpTo.Format = DateTimePickerFormat.Custom;
-            dtpTo.Value = DateTime.Now.AddMonths(1).AddDays(-DateTime.Now.Day); //月末
-            ToolStripControlHost host2 = new ToolStripControlHost(dtpTo);
-            toolStrip_Invoice.Items.Insert(9, host2);
 
             DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -82,7 +76,7 @@ namespace ImageScann
             DataGridView_Invoice.Columns["TotalAmount"].DefaultCellStyle.Format = "N2";
             DataGridView_Invoice.Columns["TotalTaxAmount"].DefaultCellStyle.Format = "N2";
             DataGridView_Invoice.Columns["TotalTax"].DefaultCellStyle.Format = "N2";
-            DataGridView_Invoice.Columns["InvImage"].DefaultCellStyle.NullValue = null;            
+            DataGridView_Invoice.Columns["InvImage"].DefaultCellStyle.NullValue = null;
             bInitFlag = opskyScan.InitOpSkyScan(out msg); //初始化扫描仪
             if (!bInitFlag)
             {
@@ -90,64 +84,15 @@ namespace ImageScann
                 tsVatInvoiceScan.Enabled = false;
             }
             //绑定自定义控件
+            panelMycontrol.Controls.Clear();
             PageControl pageControl = new PageControl();
             //pageControl.PageSize = (panelData.Height - 50) / 23;
             pageControl.Parent = panelMycontrol;
             pageControl.Dock = DockStyle.Left;
             pageControl.Kind = 0;
-            pageControl.PageIndex = 0;           
+            pageControl.PageIndex = 0;
             pageControl.BindPageEvent += BindPage;
             pageControl.SetPage();
-        }
-        /// <summary>
-        /// 查询
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tstripButton_query_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                PageControl pageControl = new PageControl();                
-                pageControl.Parent = panelMycontrol;
-                pageControl.Dock = DockStyle.Left;
-                pageControl.Kind = 1;
-                pageControl.PageIndex = 0;
-                pageControl.BindPageEvent += BindPage;
-                pageControl.SetPage();
-                //DataSet ds = new DataSet();
-                //ds = vatInvoiceBll.GetVatInvoice(tsTextBox_InvCode.Text, tsTextBox_InvNum.Text, tstripTextBox_SellerName.Text, toolStrip_Invoice.Items[7].Text.ToString(), toolStrip_Invoice.Items[9].Text.ToString(), null);
-                //DataGridView_Invoice.DataSource = ds.Tables[0];
-                //for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                //{
-                //    string invPatch = ds.Tables[0].Rows[i]["InvoicePatch"].ToString();
-                //    string imgPatch = AppDomain.CurrentDomain.BaseDirectory + @"vatinvoiceimages\" + invPatch;
-                //    DataGridView_Invoice.Rows[i].Cells["InvImage"].Value = vatInvoiceBll.GetImage(imgPatch);
-                //}
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show(ex.ToString(), "异常提示");
-            }
-        }
-        /// <summary>
-        /// 输出
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void tstripButton_excel_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                ExportToExcel exportToExcel = new ExportToExcel();
-                exportToExcel.OutputAsExcelFile(GetAllData());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "异常提示");
-            }
-
         }
         /// <summary>
         /// 发票扫描
@@ -213,6 +158,7 @@ namespace ImageScann
         {
             try
             {
+                panelMycontrol.Controls.Clear();
                 PageControl pageControl = new PageControl();
                 //pageControl.PageSize = (panelData.Height - 50) / 23;
                 pageControl.Parent = panelMycontrol;
@@ -238,7 +184,12 @@ namespace ImageScann
         {
             try
             {
+                if (DataGridView_Invoice.IsCurrentCellInEditMode)
+                {
+                    DataGridView_Invoice.CurrentCell = null;
+                }
                 int rows = DataGridView_Invoice.Rows.Count;
+
                 for (int i = 0; i < rows; i++)
                 {
                     VatInvoice invoice = new VatInvoice
@@ -316,7 +267,7 @@ namespace ImageScann
         /// <returns></returns>
         private DataSet GetAllData()
         {
-            return vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, invDateFr, invDateTo, null);
+            return vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, purchaserName, invDateFr, invDateTo, null);
         }
         /// <summary>
         /// 查询绑定页
@@ -328,30 +279,31 @@ namespace ImageScann
         private void BindPage(int pageSize, int pageIndex, int kind, out int totalCount)
         {
             _ = new DataSet();
-            invCode = tsTextBox_InvCode.Text;
-            invNum = tsTextBox_InvNum.Text;
-            sellerName = tstripTextBox_SellerName.Text;
-            invDateFr = toolStrip_Invoice.Items[7].Text.ToString();
-            invDateTo = toolStrip_Invoice.Items[9].Text.ToString();
+            invCode = textBoxInvCode.Text;
+            invNum = textBoxInvNum.Text;
+            sellerName = textBoxSellerName.Text;
+            purchaserName = textBoxPurchaserName.Text;
+            invDateFr = dateTimePickerDareFm.Text.ToString();
+            invDateTo = dateTimePickerDateTo.Text.ToString();
             DataSet ds;
             if (kind == 1)
             {
-                ds = vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, invDateFr, invDateTo, null, pageSize, pageIndex);
+                ds = vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, purchaserName, invDateFr, invDateTo, null, pageSize, pageIndex);
                 totalCount = GetAllData().Tables[0].Rows.Count;
             }
             else if (kind == 2)
             {
                 string lastScanTime = ConfigurationManager.AppSettings["lastScanTime"];
-                ds = vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, invDateFr, invDateTo, lastScanTime, pageSize, pageIndex);
-                totalCount = vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, invDateFr, invDateTo, lastScanTime, 0, 0).Tables[0].Rows.Count;
-            }   
+                ds = vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, "", "", "", lastScanTime, pageSize, pageIndex);
+                totalCount = vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, "", "", "", lastScanTime, 0, 0).Tables[0].Rows.Count;
+            }
             else
             {
                 totalCount = 0;
                 ds = null;
             }
 
-            if(ds != null)
+            if (ds != null)
             {
                 DataGridView_Invoice.DataSource = ds.Tables[0];
                 Image invIco = Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + @"icon\invoice.jpg");
@@ -359,7 +311,57 @@ namespace ImageScann
                 {
                     DataGridView_Invoice.Rows[i].Cells["InvImage"].Value = invIco;
                 }
-            }     
+            }
+        }
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonQuery_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                panelMycontrol.Controls.Clear();
+                PageControl pageControl = new PageControl();                
+                pageControl.Parent = panelMycontrol;
+                pageControl.Dock = DockStyle.Left;
+                pageControl.Kind = 1;
+                pageControl.PageIndex = 0;
+                pageControl.BindPageEvent += BindPage;
+                pageControl.SetPage();
+                //DataSet ds = new DataSet();
+                //ds = vatInvoiceBll.GetVatInvoice(tsTextBox_InvCode.Text, tsTextBox_InvNum.Text, tstripTextBox_SellerName.Text, toolStrip_Invoice.Items[7].Text.ToString(), toolStrip_Invoice.Items[9].Text.ToString(), null);
+                //DataGridView_Invoice.DataSource = ds.Tables[0];
+                //for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                //{
+                //    string invPatch = ds.Tables[0].Rows[i]["InvoicePatch"].ToString();
+                //    string imgPatch = AppDomain.CurrentDomain.BaseDirectory + @"vatinvoiceimages\" + invPatch;
+                //    DataGridView_Invoice.Rows[i].Cells["InvImage"].Value = vatInvoiceBll.GetImage(imgPatch);
+                //}
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString(), "异常提示");
+            }
+        }
+        /// <summary>
+        /// 输出excel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonExcel_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ExportToExcel exportToExcel = new ExportToExcel();
+                exportToExcel.OutputAsExcelFile(GetAllData(),DataGridView_Invoice);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "异常提示");
+            }
         }
     }
 }
