@@ -1,5 +1,6 @@
 ﻿using ImageScann.BLL;
 using ImageScann.DAL;
+using Newtonsoft.Json;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -323,7 +324,7 @@ namespace ImageScann
             try
             {
                 panelMycontrol.Controls.Clear();
-                PageControl pageControl = new PageControl();                
+                PageControl pageControl = new PageControl();
                 pageControl.Parent = panelMycontrol;
                 pageControl.Dock = DockStyle.Left;
                 pageControl.Kind = 1;
@@ -356,12 +357,78 @@ namespace ImageScann
             try
             {
                 ExportToExcel exportToExcel = new ExportToExcel();
-                exportToExcel.OutputAsExcelFile(GetAllData(),DataGridView_Invoice);
+                exportToExcel.OutputAsExcelFile(GetAllData(), DataGridView_Invoice);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "异常提示");
             }
+        }
+        /// <summary>
+        /// 上传发票
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void toolStripButton_upload_Click(object sender, EventArgs e)
+        {
+            DataSet ds = GetAllData();
+            DataTable dataTable = ds.Tables[0];
+            DataView dataView = new DataView(dataTable);
+            dataView.RowFilter = "PushStatus = 0";
+            string result = "1";
+            int num = dataView.Count;
+            if (num > 0)
+            {
+                progressBar_upload.Visible = true;
+                progressBar_upload.Maximum = num;
+                progressBar_upload.Value = 1;
+                progressBar_upload.Step = 1;
+                string det = "[]";
+                for (int i = 0; i < num; i++)
+                {
+                    DataRowView dr = dataView[i];
+                    string invType = dr["InvoiceTypeOrg"].ToString() == "增值税专用发票" ? "01" : "02";
+                    int id = int.Parse(dr["Id"].ToString());
+                    Dictionary<string, object> dic = new Dictionary<string, object>();
+                    dic.Add("DepartID", "0201");
+                    dic.Add("ChannelID", "90");
+                    dic.Add("DocDate", DateTime.Now.ToString("yyyy-MM-dd"));
+                    dic.Add("InvoiceCode", dr["InvoiceCode"]);
+                    dic.Add("InvoiceNumber", dr["InvoiceNumber"]);
+                    dic.Add("InvoiceDate", dr["InvoiceDate"]);
+                    dic.Add("PurchaserName", dr["PurchaserName"]);
+                    dic.Add("PurchaserRegisterNum", dr["PurchaserRegisterNum"]);
+                    dic.Add("PurchaserAddress", dr["PurchaserAddress"]);
+                    dic.Add("PurchaserBank", dr["PurchaserBank"]);
+                    dic.Add("SellerName", dr["SellerName"]);
+                    dic.Add("SellerRegisterNum", dr["SellerRegisterNum"]);
+                    dic.Add("SellerAddress", dr["SellerAddress"]);
+                    dic.Add("SellerBank", dr["SellerBank"]);
+                    dic.Add("TotalAmount", dr["TotalAmount"]);
+                    dic.Add("TotalTax", dr["TotalTax"]);
+                    dic.Add("TotalTaxAmount", dr["TotalTaxAmount"]);
+                    dic.Add("IsInvalid", false);
+                    string doc = JsonConvert.SerializeObject(dic);
+                    string fileName = dr["InvoiceCode"] + "_" + dr["InvoiceNumber"] + ".jpg";
+                    string filePatch = AppDomain.CurrentDomain.BaseDirectory + @"vatinvoiceimages\" + vatInvoiceBll.GetInvoicePatch(id);
+                    result = vatInvoiceBll.InvoiceAdd(invType, doc, det, fileName, filePatch);
+                    if (result == "1")
+                        vatInvoiceBll.UpdatePushStatus(id);
+                    else
+                    {
+                        break;
+                    }
+                    progressBar_upload.PerformStep();
+                }
+                progressBar_upload.Visible = false;
+                MessageBox.Show(result == "1" ? "上传完成" : result, "提示");
+            }
+            else
+            {
+                MessageBox.Show("无待上传发票", "提示");
+            }
+
+
         }
     }
 }

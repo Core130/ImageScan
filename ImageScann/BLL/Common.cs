@@ -1,11 +1,12 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Text;
-using NLog;
 
 namespace ImageScann.BLL
 {
@@ -163,6 +164,72 @@ namespace ImageScann.BLL
             }
             xDoc.Save(System.Windows.Forms.Application.ExecutablePath + ".config");
             ConfigurationManager.RefreshSection("appSettings");
+        }
+
+        /// <summary>
+        /// 上传图片文件     
+        /// <returns></returns>
+        public static string HttpUploadFile(string url, string poststr, string filename, string filepath)
+        {
+            using (var client = new HttpClient())
+            {
+                var request = new MultipartFormDataContent();
+                var fileStream = new FileStream(filepath, FileMode.Open, FileAccess.Read);
+                Dictionary<string, string> dic = new Dictionary<string, string>();
+                // 文本域的数据，将user=eking&pass=123456  格式的文本域拆分 ，然后构造
+                foreach (string c in poststr.Split('&'))
+                {
+                    string[] item = c.Split('=');
+                    if (item.Length != 2)
+                    {
+                        break;
+                    }
+                    dic.Add(item[0], item[1]);
+                }
+                request.Add(new StringContent(dic["dataNbr"]), "dataNbr");
+                request.Add(new StringContent(dic["token"]), "token");
+                request.Add(new StringContent(dic["prgID"]), "prgID");
+                request.Add(new StringContent(dic["userID"]), "userID");
+                request.Add(new StringContent(dic["userName"]), "userName");
+                request.Add(new StringContent(dic["companyCode"]), "companyCode");
+                request.Add(new StreamContent(fileStream, (int)fileStream.Length), "file", filename);
+                var result = client.PostAsync(url, request).Result;
+                try
+                {
+                    if (result.IsSuccessStatusCode)
+                    {
+                        var res = result.Content.ReadAsStringAsync().Result;
+                        return res;
+                    }
+                    return "{\"success\":false,\"info\":\"上传接口异常\"}";
+                }
+                catch (Exception ex)
+                {
+                    _logger.Info("上传发票图片异常:" + ex.ToString());
+                    return "{\"success\":false}";
+                }
+            }
+        }
+
+        /// <summary>
+        /// MD5字符串加密
+        /// </summary>
+        /// <param name="txt"></param>
+        /// <returns>加密后字符串</returns>
+        public static string GenerateMD5(string txt)
+        {
+            using (MD5 mi = MD5.Create())
+            {
+                byte[] buffer = Encoding.Default.GetBytes(txt);
+                //开始加密
+                byte[] newBuffer = mi.ComputeHash(buffer);
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < newBuffer.Length; i++)
+                {
+                    sb.Append(newBuffer[i].ToString("x2"));
+                }
+                return sb.ToString();
+            }
         }
     }
 }

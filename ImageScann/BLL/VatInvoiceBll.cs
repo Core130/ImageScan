@@ -1,13 +1,11 @@
 ﻿using ImageScann.DAL;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Data.SQLite;
 using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
 namespace ImageScann.BLL
 {
@@ -28,7 +26,7 @@ namespace ImageScann.BLL
         /// <param name="pageSize">页大小,0:不分页</param>
         /// <param name="pageIndex">第几页</param>
         /// <returns></returns>
-        public DataSet GetVatInvoice(string invCode, string invNum, string sellerName,string purchaserName, string dateFr, string dateTo, string lastScanTime, int pageSize = 0, int pageIndex = 0)
+        public DataSet GetVatInvoice(string invCode, string invNum, string sellerName, string purchaserName, string dateFr, string dateTo, string lastScanTime, int pageSize = 0, int pageIndex = 0)
         {
             string commandText = @"SELECT  Id, InvoiceTypeOrg, InvoiceCode, InvoiceNumber, InvoiceDate, PurchaserName,
                             PurchaserRegisterNum, PurchaserAddress, PurchaserBank, SellerName, SellerRegisterNum, SellerAddress, SellerBank, 
@@ -53,7 +51,7 @@ namespace ImageScann.BLL
         /// <param name="invoice"></param>
         public void AddVatInvoice(VatInvoice invoice)
         {
-            DataSet ds = GetVatInvoice(invoice.InvoiceCode, invoice.InvoiceNumber,"", "", "", "", "");
+            DataSet ds = GetVatInvoice(invoice.InvoiceCode, invoice.InvoiceNumber, "", "", "", "", "");
             if (ds.Tables[0].Rows.Count == 0)
             {
                 string commandStr = @"INSERT INTO Vat_Invoice(InvoiceType,InvoiceTypeOrg, InvoiceCode, InvoiceNumber, 
@@ -151,6 +149,115 @@ namespace ImageScann.BLL
             {
                 return null;
             }
-        }        
+        }
+        /// <summary>
+        /// 更新发票上传状态
+        /// </summary>
+        /// <param name="id"></param>
+        public void UpdatePushStatus(int id)
+        {
+            string commandStr = @"UPDATE Vat_Invoice 
+                                SET 
+                                    PushStatus = @PushStatus, 
+                                    PushTime = @PushTime
+                                    WHERE Id = @id";
+            var parameters = new object[] { 1, DateTime.Now, id };
+            SQLiteHelper.ExecuteNonQuery(connectionString, commandStr, parameters);
+
+        }
+        /// <summary>
+        /// 获取CesToken
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public string GetCesToken(out string userName)
+        {
+            string result = "";
+            string url = System.Configuration.ConfigurationManager.AppSettings["invoiceUrl"];
+            string userId = System.Configuration.ConfigurationManager.AppSettings["cesUserId"];
+            string userPassword = System.Configuration.ConfigurationManager.AppSettings["cesUserPassword"];
+            var tokenData = JObject.Parse(Common.HttpPost(url + "CESApi//CheckLogin", string.Format("userID={0}&password={1}&version={2}", userId, userPassword, 2)));
+            string success = tokenData["success"].ToString();
+            if(Convert.ToBoolean(success))
+            {
+                result = tokenData["data"]["token"].ToString();
+                userName = tokenData["data"]["username"].ToString();
+            }
+            else
+            {
+                userName = "";
+            }
+            return result;
+        }
+        /// <summary>
+        /// 上传增值税发票
+        /// </summary>
+        /// <param name="invType">01:专票、02:普票</param>
+        /// <param name="companyCode"></param>
+        /// <param name="userID"></param>
+        /// <param name="doc"></param>
+        /// <param name="det"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public string InvoiceAdd(string invType, string doc, string det,string fileName, string filePatch)
+        {
+            string url = System.Configuration.ConfigurationManager.AppSettings["invoiceUrl"];
+            string userName;
+            string token = GetCesToken(out userName);
+            string companyCode = "1101";
+            if(!string.IsNullOrWhiteSpace(token))
+            {
+                string prgId;
+                string requestUrl;
+                string userId = System.Configuration.ConfigurationManager.AppSettings["cesUserId"];
+                if (invType == "01")
+                {
+                    requestUrl = url + "Invoice01Api";
+                    prgId = "IN006";
+                }
+                else if (invType == "02")
+                {
+                    requestUrl = url + "Invoice02Api";
+                    prgId = "IN004";
+                }
+                else
+                {
+                    return "发票类型有误";
+                }
+
+                var result = JObject.Parse(Common.HttpPost(requestUrl + "/Add/", string.Format("companyCode={0}&userID={1}&doc={2}&det={3}&token={4}"
+                    , companyCode, userId, doc, det, token)));
+                string success = result["success"].ToString();
+                string msg = result["msg"].ToString();
+                if (Convert.ToBoolean(success))
+                {
+                    //发票推送成功后上传图片附件
+                    string dataNbr = result["data"]["datanbr"].ToString();
+                    string postStr = string.Format("dataNbr={0}&token={1}&prgID={2}&userID={3}&userName={4}&companyCode={5}&fileName={6}"
+                        , dataNbr, HttpUtility.UrlEncode(token), prgId, userId, userName, companyCode, fileName);
+                    var fileresult = JObject.Parse(Common.HttpUploadFile(url + "CESApi/UploadFile?", postStr, fileName, filePatch));
+                    success = fileresult["success"].ToString();
+                    msg += fileresult["msg"].ToString();
+                    if (Convert.ToBoolean(success))
+                    {
+                        //发票和图片都处理成功才返回1
+                        return "1";
+                    }
+                    else
+                    {
+                        //删除上传的发票
+                        Common.HttpPost(requestUrl + "/Delete/", string.Format("dataNbr={0}&userID={1}&token={2}", dataNbr, userId, token));
+                    }
+                    return msg;
+                }
+                else
+                    return msg;
+            }
+            else
+            {
+                return "配置用户密码有误";
+            }
+            
+        }
     }
 }

@@ -43,6 +43,18 @@ namespace ImageScann
             {
                 common.SetValue("scanMode", scanMode == "影像模式" ? "image" : "invoice");
             }
+
+            string cesUserId = this.txt_UserId.Text.Trim();
+            if (!string.IsNullOrEmpty(cesUserId))
+            {
+                common.SetValue("cesUserId", cesUserId);
+            }
+
+            string cesUserPassword = this.txt_UserPassword.Text.Trim();
+            if (!string.IsNullOrEmpty(cesUserPassword))
+            {
+                common.SetValue("cesUserPassword", Common.GenerateMD5(cesUserPassword));
+            }
             Close();            
         }
 
@@ -51,7 +63,9 @@ namespace ImageScann
         {
             txt_imgUrl.Text = ConfigurationManager.AppSettings["url"];
             txt_invoiceUrl.Text = ConfigurationManager.AppSettings["invoiceUrl"];
-            cBox_ScanMode.Text = ConfigurationManager.AppSettings["scanMode"] == "image" ? "影像模式" : "识票模式";            
+            cBox_ScanMode.Text = ConfigurationManager.AppSettings["scanMode"] == "image" ? "影像模式" : "识票模式";    
+            txt_UserId.Text = ConfigurationManager.AppSettings["cesUserId"];
+            txt_UserPassword.Text = "********";
         }
     }
 }

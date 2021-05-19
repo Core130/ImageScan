@@ -37,6 +37,7 @@ namespace ImageScann
             this.tstripButton_save = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.tstripButton_pdf = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_upload = new System.Windows.Forms.ToolStripButton();
             this.DataGridView_Invoice = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InvoiceTypeOrg = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -73,6 +74,7 @@ namespace ImageScann
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxInvCode = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.progressBar_upload = new System.Windows.Forms.ProgressBar();
             this.toolStrip_Invoice.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView_Invoice)).BeginInit();
             this.panelData.SuspendLayout();
@@ -89,10 +91,11 @@ namespace ImageScann
             this.toolStripSeparator3,
             this.tstripButton_save,
             this.toolStripSeparator4,
-            this.tstripButton_pdf});
+            this.tstripButton_pdf,
+            this.toolStripButton_upload});
             this.toolStrip_Invoice.Location = new System.Drawing.Point(0, 0);
             this.toolStrip_Invoice.Name = "toolStrip_Invoice";
-            this.toolStrip_Invoice.Size = new System.Drawing.Size(1060, 44);
+            this.toolStrip_Invoice.Size = new System.Drawing.Size(1413, 47);
             this.toolStrip_Invoice.TabIndex = 0;
             this.toolStrip_Invoice.Text = "toolStrip1";
             // 
@@ -101,7 +104,7 @@ namespace ImageScann
             this.tsVatInvoiceScan.Image = ((System.Drawing.Image)(resources.GetObject("tsVatInvoiceScan.Image")));
             this.tsVatInvoiceScan.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsVatInvoiceScan.Name = "tsVatInvoiceScan";
-            this.tsVatInvoiceScan.Size = new System.Drawing.Size(36, 41);
+            this.tsVatInvoiceScan.Size = new System.Drawing.Size(43, 44);
             this.tsVatInvoiceScan.Text = "扫描";
             this.tsVatInvoiceScan.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tsVatInvoiceScan.ToolTipText = "扫描";
@@ -112,7 +115,7 @@ namespace ImageScann
             this.tstripButton_querylasttime.Image = ((System.Drawing.Image)(resources.GetObject("tstripButton_querylasttime.Image")));
             this.tstripButton_querylasttime.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tstripButton_querylasttime.Name = "tstripButton_querylasttime";
-            this.tstripButton_querylasttime.Size = new System.Drawing.Size(60, 41);
+            this.tstripButton_querylasttime.Size = new System.Drawing.Size(73, 44);
             this.tstripButton_querylasttime.Text = "最近扫描";
             this.tstripButton_querylasttime.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tstripButton_querylasttime.Click += new System.EventHandler(this.tstripButton_querylasttime_Click);
@@ -120,14 +123,14 @@ namespace ImageScann
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 44);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 47);
             // 
             // tstripButton_save
             // 
             this.tstripButton_save.Image = ((System.Drawing.Image)(resources.GetObject("tstripButton_save.Image")));
             this.tstripButton_save.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tstripButton_save.Name = "tstripButton_save";
-            this.tstripButton_save.Size = new System.Drawing.Size(60, 41);
+            this.tstripButton_save.Size = new System.Drawing.Size(73, 44);
             this.tstripButton_save.Text = "保存更改";
             this.tstripButton_save.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tstripButton_save.Click += new System.EventHandler(this.tstripButton_save_Click);
@@ -135,17 +138,27 @@ namespace ImageScann
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 44);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 47);
             // 
             // tstripButton_pdf
             // 
             this.tstripButton_pdf.Image = ((System.Drawing.Image)(resources.GetObject("tstripButton_pdf.Image")));
             this.tstripButton_pdf.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tstripButton_pdf.Name = "tstripButton_pdf";
-            this.tstripButton_pdf.Size = new System.Drawing.Size(60, 41);
+            this.tstripButton_pdf.Size = new System.Drawing.Size(73, 44);
             this.tstripButton_pdf.Text = "导出发票";
             this.tstripButton_pdf.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.tstripButton_pdf.Click += new System.EventHandler(this.tstripButton_pdf_Click);
+            // 
+            // toolStripButton_upload
+            // 
+            this.toolStripButton_upload.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_upload.Image")));
+            this.toolStripButton_upload.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_upload.Name = "toolStripButton_upload";
+            this.toolStripButton_upload.Size = new System.Drawing.Size(73, 44);
+            this.toolStripButton_upload.Text = "上传发票";
+            this.toolStripButton_upload.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripButton_upload.Click += new System.EventHandler(this.toolStripButton_upload_Click);
             // 
             // DataGridView_Invoice
             // 
@@ -173,10 +186,11 @@ namespace ImageScann
             this.PushStatus});
             this.DataGridView_Invoice.Dock = System.Windows.Forms.DockStyle.Fill;
             this.DataGridView_Invoice.Location = new System.Drawing.Point(0, 0);
+            this.DataGridView_Invoice.Margin = new System.Windows.Forms.Padding(4);
             this.DataGridView_Invoice.Name = "DataGridView_Invoice";
             this.DataGridView_Invoice.RowHeadersWidth = 51;
             this.DataGridView_Invoice.RowTemplate.Height = 23;
-            this.DataGridView_Invoice.Size = new System.Drawing.Size(1060, 435);
+            this.DataGridView_Invoice.Size = new System.Drawing.Size(1413, 551);
             this.DataGridView_Invoice.TabIndex = 1;
             this.DataGridView_Invoice.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView_Invoice_CellDoubleClick);
             // 
@@ -189,7 +203,7 @@ namespace ImageScann
             this.Id.Name = "Id";
             this.Id.ReadOnly = true;
             this.Id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Id.Width = 32;
+            this.Id.Width = 39;
             // 
             // InvoiceTypeOrg
             // 
@@ -199,7 +213,7 @@ namespace ImageScann
             this.InvoiceTypeOrg.MinimumWidth = 6;
             this.InvoiceTypeOrg.Name = "InvoiceTypeOrg";
             this.InvoiceTypeOrg.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.InvoiceTypeOrg.Width = 42;
+            this.InvoiceTypeOrg.Width = 52;
             // 
             // InvImage
             // 
@@ -219,7 +233,7 @@ namespace ImageScann
             this.InvoiceCode.MinimumWidth = 6;
             this.InvoiceCode.Name = "InvoiceCode";
             this.InvoiceCode.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.InvoiceCode.Width = 42;
+            this.InvoiceCode.Width = 52;
             // 
             // InvoiceNumber
             // 
@@ -229,7 +243,7 @@ namespace ImageScann
             this.InvoiceNumber.MinimumWidth = 6;
             this.InvoiceNumber.Name = "InvoiceNumber";
             this.InvoiceNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.InvoiceNumber.Width = 42;
+            this.InvoiceNumber.Width = 52;
             // 
             // InvoiceDate
             // 
@@ -239,7 +253,7 @@ namespace ImageScann
             this.InvoiceDate.MinimumWidth = 6;
             this.InvoiceDate.Name = "InvoiceDate";
             this.InvoiceDate.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.InvoiceDate.Width = 42;
+            this.InvoiceDate.Width = 52;
             // 
             // PurchaserName
             // 
@@ -249,7 +263,7 @@ namespace ImageScann
             this.PurchaserName.MinimumWidth = 6;
             this.PurchaserName.Name = "PurchaserName";
             this.PurchaserName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.PurchaserName.Width = 53;
+            this.PurchaserName.Width = 66;
             // 
             // PurchaserRegisterNum
             // 
@@ -259,7 +273,7 @@ namespace ImageScann
             this.PurchaserRegisterNum.MinimumWidth = 6;
             this.PurchaserRegisterNum.Name = "PurchaserRegisterNum";
             this.PurchaserRegisterNum.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.PurchaserRegisterNum.Width = 75;
+            this.PurchaserRegisterNum.Width = 93;
             // 
             // PurchaserAddress
             // 
@@ -269,7 +283,7 @@ namespace ImageScann
             this.PurchaserAddress.MinimumWidth = 6;
             this.PurchaserAddress.Name = "PurchaserAddress";
             this.PurchaserAddress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.PurchaserAddress.Width = 75;
+            this.PurchaserAddress.Width = 93;
             // 
             // PurchaserBank
             // 
@@ -279,7 +293,7 @@ namespace ImageScann
             this.PurchaserBank.MinimumWidth = 6;
             this.PurchaserBank.Name = "PurchaserBank";
             this.PurchaserBank.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.PurchaserBank.Width = 75;
+            this.PurchaserBank.Width = 93;
             // 
             // SellerName
             // 
@@ -289,7 +303,7 @@ namespace ImageScann
             this.SellerName.MinimumWidth = 6;
             this.SellerName.Name = "SellerName";
             this.SellerName.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SellerName.Width = 53;
+            this.SellerName.Width = 66;
             // 
             // SellerRegisterNum
             // 
@@ -299,7 +313,7 @@ namespace ImageScann
             this.SellerRegisterNum.MinimumWidth = 6;
             this.SellerRegisterNum.Name = "SellerRegisterNum";
             this.SellerRegisterNum.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SellerRegisterNum.Width = 75;
+            this.SellerRegisterNum.Width = 93;
             // 
             // SellerAddress
             // 
@@ -309,7 +323,7 @@ namespace ImageScann
             this.SellerAddress.MinimumWidth = 6;
             this.SellerAddress.Name = "SellerAddress";
             this.SellerAddress.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SellerAddress.Width = 75;
+            this.SellerAddress.Width = 93;
             // 
             // SellerBank
             // 
@@ -319,7 +333,7 @@ namespace ImageScann
             this.SellerBank.MinimumWidth = 6;
             this.SellerBank.Name = "SellerBank";
             this.SellerBank.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SellerBank.Width = 75;
+            this.SellerBank.Width = 93;
             // 
             // TotalAmount
             // 
@@ -329,7 +343,7 @@ namespace ImageScann
             this.TotalAmount.MinimumWidth = 6;
             this.TotalAmount.Name = "TotalAmount";
             this.TotalAmount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TotalAmount.Width = 42;
+            this.TotalAmount.Width = 52;
             // 
             // TotalTaxAmount
             // 
@@ -339,7 +353,7 @@ namespace ImageScann
             this.TotalTaxAmount.MinimumWidth = 6;
             this.TotalTaxAmount.Name = "TotalTaxAmount";
             this.TotalTaxAmount.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TotalTaxAmount.Width = 42;
+            this.TotalTaxAmount.Width = 52;
             // 
             // TotalTax
             // 
@@ -349,7 +363,7 @@ namespace ImageScann
             this.TotalTax.MinimumWidth = 6;
             this.TotalTax.Name = "TotalTax";
             this.TotalTax.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.TotalTax.Width = 42;
+            this.TotalTax.Width = 52;
             // 
             // PushStatus
             // 
@@ -359,23 +373,26 @@ namespace ImageScann
             this.PushStatus.MinimumWidth = 6;
             this.PushStatus.Name = "PushStatus";
             this.PushStatus.ReadOnly = true;
-            this.PushStatus.Width = 42;
+            this.PushStatus.Width = 52;
             // 
             // panelMycontrol
             // 
             this.panelMycontrol.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelMycontrol.Location = new System.Drawing.Point(0, 566);
+            this.panelMycontrol.Location = new System.Drawing.Point(0, 707);
+            this.panelMycontrol.Margin = new System.Windows.Forms.Padding(4);
             this.panelMycontrol.Name = "panelMycontrol";
-            this.panelMycontrol.Size = new System.Drawing.Size(1060, 35);
+            this.panelMycontrol.Size = new System.Drawing.Size(1413, 44);
             this.panelMycontrol.TabIndex = 2;
             // 
             // panelData
             // 
+            this.panelData.Controls.Add(this.progressBar_upload);
             this.panelData.Controls.Add(this.DataGridView_Invoice);
             this.panelData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelData.Location = new System.Drawing.Point(0, 131);
+            this.panelData.Location = new System.Drawing.Point(0, 156);
+            this.panelData.Margin = new System.Windows.Forms.Padding(4);
             this.panelData.Name = "panelData";
-            this.panelData.Size = new System.Drawing.Size(1060, 435);
+            this.panelData.Size = new System.Drawing.Size(1413, 551);
             this.panelData.TabIndex = 3;
             // 
             // panelFilter
@@ -396,16 +413,18 @@ namespace ImageScann
             this.panelFilter.Controls.Add(this.textBoxInvCode);
             this.panelFilter.Controls.Add(this.label1);
             this.panelFilter.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelFilter.Location = new System.Drawing.Point(0, 44);
+            this.panelFilter.Location = new System.Drawing.Point(0, 47);
+            this.panelFilter.Margin = new System.Windows.Forms.Padding(4);
             this.panelFilter.Name = "panelFilter";
-            this.panelFilter.Size = new System.Drawing.Size(1060, 87);
+            this.panelFilter.Size = new System.Drawing.Size(1413, 109);
             this.panelFilter.TabIndex = 2;
             // 
             // buttonExcel
             // 
-            this.buttonExcel.Location = new System.Drawing.Point(820, 50);
+            this.buttonExcel.Location = new System.Drawing.Point(1093, 62);
+            this.buttonExcel.Margin = new System.Windows.Forms.Padding(4);
             this.buttonExcel.Name = "buttonExcel";
-            this.buttonExcel.Size = new System.Drawing.Size(66, 23);
+            this.buttonExcel.Size = new System.Drawing.Size(88, 29);
             this.buttonExcel.TabIndex = 13;
             this.buttonExcel.Text = "输出";
             this.buttonExcel.UseVisualStyleBackColor = true;
@@ -413,9 +432,10 @@ namespace ImageScann
             // 
             // buttonQuery
             // 
-            this.buttonQuery.Location = new System.Drawing.Point(744, 50);
+            this.buttonQuery.Location = new System.Drawing.Point(992, 62);
+            this.buttonQuery.Margin = new System.Windows.Forms.Padding(4);
             this.buttonQuery.Name = "buttonQuery";
-            this.buttonQuery.Size = new System.Drawing.Size(66, 23);
+            this.buttonQuery.Size = new System.Drawing.Size(88, 29);
             this.buttonQuery.TabIndex = 12;
             this.buttonQuery.Text = "查询";
             this.buttonQuery.UseVisualStyleBackColor = true;
@@ -423,109 +443,132 @@ namespace ImageScann
             // 
             // textBoxPurchaserName
             // 
-            this.textBoxPurchaserName.Location = new System.Drawing.Point(457, 49);
+            this.textBoxPurchaserName.Location = new System.Drawing.Point(609, 61);
+            this.textBoxPurchaserName.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxPurchaserName.Name = "textBoxPurchaserName";
-            this.textBoxPurchaserName.Size = new System.Drawing.Size(274, 21);
+            this.textBoxPurchaserName.Size = new System.Drawing.Size(364, 25);
             this.textBoxPurchaserName.TabIndex = 11;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(387, 53);
+            this.label6.Location = new System.Drawing.Point(516, 66);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(65, 12);
+            this.label6.Size = new System.Drawing.Size(82, 15);
             this.label6.TabIndex = 10;
             this.label6.Text = "购买方名称";
             // 
             // textBoxSellerName
             // 
-            this.textBoxSellerName.Location = new System.Drawing.Point(88, 49);
+            this.textBoxSellerName.Location = new System.Drawing.Point(117, 61);
+            this.textBoxSellerName.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxSellerName.Name = "textBoxSellerName";
-            this.textBoxSellerName.Size = new System.Drawing.Size(292, 21);
+            this.textBoxSellerName.Size = new System.Drawing.Size(388, 25);
             this.textBoxSellerName.TabIndex = 9;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(18, 53);
+            this.label5.Location = new System.Drawing.Point(24, 66);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(65, 12);
+            this.label5.Size = new System.Drawing.Size(82, 15);
             this.label5.TabIndex = 8;
             this.label5.Text = "销售方名称";
             // 
             // dateTimePickerDateTo
             // 
-            this.dateTimePickerDateTo.Location = new System.Drawing.Point(610, 12);
+            this.dateTimePickerDateTo.Location = new System.Drawing.Point(813, 15);
+            this.dateTimePickerDateTo.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePickerDateTo.Name = "dateTimePickerDateTo";
-            this.dateTimePickerDateTo.Size = new System.Drawing.Size(121, 21);
+            this.dateTimePickerDateTo.Size = new System.Drawing.Size(160, 25);
             this.dateTimePickerDateTo.TabIndex = 7;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(586, 16);
+            this.label4.Location = new System.Drawing.Point(781, 20);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(17, 12);
+            this.label4.Size = new System.Drawing.Size(22, 15);
             this.label4.TabIndex = 6;
             this.label4.Text = "至";
             // 
             // dateTimePickerDareFm
             // 
-            this.dateTimePickerDareFm.Location = new System.Drawing.Point(457, 12);
+            this.dateTimePickerDareFm.Location = new System.Drawing.Point(609, 15);
+            this.dateTimePickerDareFm.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePickerDareFm.Name = "dateTimePickerDareFm";
-            this.dateTimePickerDareFm.Size = new System.Drawing.Size(121, 21);
+            this.dateTimePickerDareFm.Size = new System.Drawing.Size(160, 25);
             this.dateTimePickerDareFm.TabIndex = 5;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(399, 16);
+            this.label3.Location = new System.Drawing.Point(532, 20);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(53, 12);
+            this.label3.Size = new System.Drawing.Size(67, 15);
             this.label3.TabIndex = 4;
             this.label3.Text = "开票日期";
             // 
             // textBoxInvNum
             // 
-            this.textBoxInvNum.Location = new System.Drawing.Point(264, 12);
+            this.textBoxInvNum.Location = new System.Drawing.Point(352, 15);
+            this.textBoxInvNum.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxInvNum.Name = "textBoxInvNum";
-            this.textBoxInvNum.Size = new System.Drawing.Size(118, 21);
+            this.textBoxInvNum.Size = new System.Drawing.Size(156, 25);
             this.textBoxInvNum.TabIndex = 3;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(211, 16);
+            this.label2.Location = new System.Drawing.Point(281, 20);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
+            this.label2.Size = new System.Drawing.Size(67, 15);
             this.label2.TabIndex = 2;
             this.label2.Text = "发票号码";
             // 
             // textBoxInvCode
             // 
-            this.textBoxInvCode.Location = new System.Drawing.Point(88, 12);
+            this.textBoxInvCode.Location = new System.Drawing.Point(117, 15);
+            this.textBoxInvCode.Margin = new System.Windows.Forms.Padding(4);
             this.textBoxInvCode.Name = "textBoxInvCode";
-            this.textBoxInvCode.Size = new System.Drawing.Size(118, 21);
+            this.textBoxInvCode.Size = new System.Drawing.Size(156, 25);
             this.textBoxInvCode.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 16);
+            this.label1.Location = new System.Drawing.Point(40, 20);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.Size = new System.Drawing.Size(67, 15);
             this.label1.TabIndex = 0;
             this.label1.Text = "发票代码";
             // 
+            // progressBar_upload
+            // 
+            this.progressBar_upload.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.progressBar_upload.ForeColor = System.Drawing.Color.Gray;
+            this.progressBar_upload.Location = new System.Drawing.Point(0, 511);
+            this.progressBar_upload.Name = "progressBar_upload";
+            this.progressBar_upload.Size = new System.Drawing.Size(1413, 40);
+            this.progressBar_upload.TabIndex = 4;
+            this.progressBar_upload.Visible = false;
+            // 
             // frmVatInvoice
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1060, 601);
+            this.ClientSize = new System.Drawing.Size(1413, 751);
             this.Controls.Add(this.panelData);
             this.Controls.Add(this.panelFilter);
             this.Controls.Add(this.panelMycontrol);
             this.Controls.Add(this.toolStrip_Invoice);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmVatInvoice";
             this.Text = "我的发票列表";
             this.Load += new System.EventHandler(this.frmVatInvoice_Load);
@@ -585,5 +628,7 @@ namespace ImageScann
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBoxInvCode;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripButton toolStripButton_upload;
+        private System.Windows.Forms.ProgressBar progressBar_upload;
     }
 }
