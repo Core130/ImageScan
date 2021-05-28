@@ -23,10 +23,11 @@ namespace ImageScann.BLL
         /// <param name="dateFr">开票日期开始</param>
         /// <param name="dateTo">开票日期截止</param>
         /// <param name="lastScanTime">最近上传时间</param>
+        /// <param name="toBeUpload">待上传</param>
         /// <param name="pageSize">页大小,0:不分页</param>
         /// <param name="pageIndex">第几页</param>
         /// <returns></returns>
-        public DataSet GetVatInvoice(string invCode, string invNum, string sellerName, string purchaserName, string dateFr, string dateTo, string lastScanTime, int pageSize = 0, int pageIndex = 0)
+        public DataSet GetVatInvoice(string invCode, string invNum, string sellerName, string purchaserName, string dateFr, string dateTo, string lastScanTime,bool toBeUpload , int pageSize = 0, int pageIndex = 0)
         {
             string commandText = @"SELECT  Id, InvoiceTypeOrg, InvoiceCode, InvoiceNumber, InvoiceDate, PurchaserName,
                             PurchaserRegisterNum, PurchaserAddress, PurchaserBank, SellerName, SellerRegisterNum, SellerAddress, SellerBank, 
@@ -38,6 +39,7 @@ namespace ImageScann.BLL
             if (!string.IsNullOrWhiteSpace(dateFr)) commandText += string.Format(" AND InvoiceDate >= '{0}'", dateFr);
             if (!string.IsNullOrWhiteSpace(dateTo)) commandText += string.Format(" AND InvoiceDate <= '{0}'", dateTo);
             if (!string.IsNullOrWhiteSpace(lastScanTime)) commandText += string.Format(" AND ( CreateTime >= '{0}' OR UpdateTime >= '{0}')", lastScanTime);
+            if(toBeUpload == true) commandText += string.Format(" AND PushStatus = 0");
             if (pageSize != 0)
             {
                 commandText += string.Format(" limit {0} offset {1}", pageSize, pageSize * (pageIndex - 1));
@@ -51,7 +53,7 @@ namespace ImageScann.BLL
         /// <param name="invoice"></param>
         public void AddVatInvoice(VatInvoice invoice)
         {
-            DataSet ds = GetVatInvoice(invoice.InvoiceCode, invoice.InvoiceNumber, "", "", "", "", "");
+            DataSet ds = GetVatInvoice(invoice.InvoiceCode, invoice.InvoiceNumber, "", "", "", "", "",false);
             if (ds.Tables[0].Rows.Count == 0)
             {
                 string commandStr = @"INSERT INTO Vat_Invoice(InvoiceType,InvoiceTypeOrg, InvoiceCode, InvoiceNumber, 

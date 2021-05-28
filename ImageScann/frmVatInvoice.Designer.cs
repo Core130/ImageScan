@@ -59,6 +59,7 @@ namespace ImageScann
             this.PushStatus = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.panelMycontrol = new System.Windows.Forms.Panel();
             this.panelData = new System.Windows.Forms.Panel();
+            this.progressBar_upload = new System.Windows.Forms.ProgressBar();
             this.panelFilter = new System.Windows.Forms.Panel();
             this.buttonExcel = new System.Windows.Forms.Button();
             this.buttonQuery = new System.Windows.Forms.Button();
@@ -74,7 +75,8 @@ namespace ImageScann
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxInvCode = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.progressBar_upload = new System.Windows.Forms.ProgressBar();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton_queryBeUploaded = new System.Windows.Forms.ToolStripButton();
             this.toolStrip_Invoice.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridView_Invoice)).BeginInit();
             this.panelData.SuspendLayout();
@@ -92,6 +94,8 @@ namespace ImageScann
             this.tstripButton_save,
             this.toolStripSeparator4,
             this.tstripButton_pdf,
+            this.toolStripSeparator1,
+            this.toolStripButton_queryBeUploaded,
             this.toolStripButton_upload});
             this.toolStrip_Invoice.Location = new System.Drawing.Point(0, 0);
             this.toolStrip_Invoice.Name = "toolStrip_Invoice";
@@ -395,6 +399,16 @@ namespace ImageScann
             this.panelData.Size = new System.Drawing.Size(1413, 551);
             this.panelData.TabIndex = 3;
             // 
+            // progressBar_upload
+            // 
+            this.progressBar_upload.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.progressBar_upload.ForeColor = System.Drawing.Color.Gray;
+            this.progressBar_upload.Location = new System.Drawing.Point(0, 511);
+            this.progressBar_upload.Name = "progressBar_upload";
+            this.progressBar_upload.Size = new System.Drawing.Size(1413, 40);
+            this.progressBar_upload.TabIndex = 4;
+            this.progressBar_upload.Visible = false;
+            // 
             // panelFilter
             // 
             this.panelFilter.BackColor = System.Drawing.Color.White;
@@ -549,15 +563,21 @@ namespace ImageScann
             this.label1.TabIndex = 0;
             this.label1.Text = "发票代码";
             // 
-            // progressBar_upload
+            // toolStripSeparator1
             // 
-            this.progressBar_upload.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.progressBar_upload.ForeColor = System.Drawing.Color.Gray;
-            this.progressBar_upload.Location = new System.Drawing.Point(0, 511);
-            this.progressBar_upload.Name = "progressBar_upload";
-            this.progressBar_upload.Size = new System.Drawing.Size(1413, 40);
-            this.progressBar_upload.TabIndex = 4;
-            this.progressBar_upload.Visible = false;
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 47);
+            // 
+            // toolStripButton_queryBeUploaded
+            // 
+            this.toolStripButton_queryBeUploaded.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_queryBeUploaded.Image")));
+            this.toolStripButton_queryBeUploaded.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_queryBeUploaded.Name = "toolStripButton_queryBeUploaded";
+            this.toolStripButton_queryBeUploaded.Size = new System.Drawing.Size(88, 44);
+            this.toolStripButton_queryBeUploaded.Text = "待上传发票";
+            this.toolStripButton_queryBeUploaded.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.toolStripButton_queryBeUploaded.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolStripButton_queryBeUploaded.Click += new System.EventHandler(this.toolStripButton_queryBeUploaded_Click);
             // 
             // frmVatInvoice
             // 
@@ -630,5 +650,7 @@ namespace ImageScann
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ToolStripButton toolStripButton_upload;
         private System.Windows.Forms.ProgressBar progressBar_upload;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton toolStripButton_queryBeUploaded;
     }
 }

@@ -268,7 +268,7 @@ namespace ImageScann
         /// <returns></returns>
         private DataSet GetAllData()
         {
-            return vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, purchaserName, invDateFr, invDateTo, null);
+            return vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, purchaserName, invDateFr, invDateTo, null, false);
         }
         /// <summary>
         /// 查询绑定页
@@ -287,16 +287,21 @@ namespace ImageScann
             invDateFr = dateTimePickerDareFm.Text.ToString();
             invDateTo = dateTimePickerDateTo.Text.ToString();
             DataSet ds;
-            if (kind == 1)
+            if (kind == 1)   //正常查询
             {
-                ds = vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, purchaserName, invDateFr, invDateTo, null, pageSize, pageIndex);
+                ds = vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, purchaserName, invDateFr, invDateTo, null,false, pageSize, pageIndex);
                 totalCount = GetAllData().Tables[0].Rows.Count;
             }
-            else if (kind == 2)
+            else if (kind == 2)  //最近上传记录
             {
                 string lastScanTime = ConfigurationManager.AppSettings["lastScanTime"];
-                ds = vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, "", "", "", lastScanTime, pageSize, pageIndex);
-                totalCount = vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, "", "", "", lastScanTime, 0, 0).Tables[0].Rows.Count;
+                ds = vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, "", "", "", lastScanTime,false, pageSize, pageIndex);
+                totalCount = vatInvoiceBll.GetVatInvoice(invCode, invNum, sellerName, "", "", "", lastScanTime,false, 0, 0).Tables[0].Rows.Count;
+            }
+            else if (kind == 3)   //查待上传的记录
+            {                
+                ds = vatInvoiceBll.GetVatInvoice("", "", "", "", "", "", "",true, pageSize, pageIndex);
+                totalCount = vatInvoiceBll.GetVatInvoice("", "", "", "", "", "", "",true, 0, 0).Tables[0].Rows.Count;
             }
             else
             {
@@ -429,6 +434,35 @@ namespace ImageScann
             }
 
 
+        }
+
+        private void toolStripButton_queryBeUploaded_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                panelMycontrol.Controls.Clear();
+                PageControl pageControl = new PageControl();
+                pageControl.Parent = panelMycontrol;
+                pageControl.Dock = DockStyle.Left;
+                pageControl.Kind = 3;
+                pageControl.PageIndex = 0;
+                pageControl.BindPageEvent += BindPage;
+                pageControl.SetPage();
+                //DataSet ds = new DataSet();
+                //ds = vatInvoiceBll.GetVatInvoice(tsTextBox_InvCode.Text, tsTextBox_InvNum.Text, tstripTextBox_SellerName.Text, toolStrip_Invoice.Items[7].Text.ToString(), toolStrip_Invoice.Items[9].Text.ToString(), null);
+                //DataGridView_Invoice.DataSource = ds.Tables[0];
+                //for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                //{
+                //    string invPatch = ds.Tables[0].Rows[i]["InvoicePatch"].ToString();
+                //    string imgPatch = AppDomain.CurrentDomain.BaseDirectory + @"vatinvoiceimages\" + invPatch;
+                //    DataGridView_Invoice.Rows[i].Cells["InvImage"].Value = vatInvoiceBll.GetImage(imgPatch);
+                //}
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString(), "异常提示");
+            }
         }
     }
 }
